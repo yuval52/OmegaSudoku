@@ -10,37 +10,187 @@ namespace OmegaSudoku
     {
         // The length of one side of the board
         private int _size;
+        // The square root of the side length, used as square size
+        private int _sizeRoot;
         // The values of the board
         public int[,] _board;
 
         // An array of bitmasks for values in a row
-        private int[] _rowConstraints;
+        private int[] _rowMasks;
         // An array of bitmasks for values in a column
-        private int[] _colummnConstraints;
+        private int[] _columnMasks;
         // An array of bitmasks for values in a square
-        private int[,] _squareConstraints;
+        private int[,] _squareMasks;
+
+        public int GetSize()
+        {
+            return _size;
+        }
+
+        public int GetSizeRoot()
+        {
+            return _sizeRoot;
+        }
 
         public SudokuBoard(int size)
         {
             // Initiallize empty board with no constraints
             _size = size;
             _board = new int[size, size];
-            _rowConstraints = new int[size];
-            _colummnConstraints = new int[size];
-            int sqrt = (int)Math.Sqrt(size);
-            _squareConstraints = new int[sqrt, sqrt];
+            _rowMasks = new int[size];
+            _columnMasks = new int[size];
+            _sizeRoot = (int)Math.Sqrt(size);
+            _squareMasks = new int[_sizeRoot, _sizeRoot];
         }
 
-        public void LoadBoard(int[] newBoard)
+        public bool LoadBoard(int[] newBoard)
         {
             // For now assume array length was already checked to be correct
+            bool valid = true;
             for (int i = 0; i < _size; i++) {
                 for (int j = 0; j < _size; j++)
                 {
                     // Fill in board matrix
                     _board[i, j] = newBoard[(i *  _size) + j];
+                    if (_board[i, j] != 0)
+                    {
+                        if(!AddToRowMask(i, _board[i, j]))
+                        {
+                            // Couldn't add number to mask, invalid board
+                            valid = false;
+                        }
+                        if (!AddToColumnMask(j, _board[i, j]))
+                        {
+                            // Couldn't add number to mask, invalid board
+                            valid = false;
+                        }
+                        // Calculate square coordinates of cell
+                        int squareI = (int)(i / _sizeRoot);
+                        int squareJ = (int)(j / _sizeRoot);
+                        if (!AddToSquareMask(squareI, squareJ, _board[i, j]))
+                        {
+                            // Couldn't add number to mask, invalid board
+                            valid = false;
+                        }
+                    }
                 }
             }
+            // All values were entered successfuly
+            return valid;
+        }
+
+        public int GetRowMask(int row)
+        {
+            // Return the bitmask of the specified row
+            return _rowMasks[row];
+        }
+
+        public int GetColumnMask(int col)
+        {
+            // Return the bitmask of the specified column
+            return _columnMasks[col];
+        }
+
+        public int GetSquareMask(int i, int j)
+        {
+            // Return the bitmask of the specified square (by the coordinates of the square)
+            return _squareMasks[i, j];
+        }
+
+        public int GetCellMask(int i, int j)
+        {
+            // Return a bitmask of possible numbers for one cell. 0 is possible, 1 is not possible
+            int squareI = (int)(i / _sizeRoot);
+            int squareJ = (int)(j / _sizeRoot);
+            int mask = _rowMasks[i] | _columnMasks[j] | _squareMasks[squareI, squareJ];
+            return mask;
+        }
+
+        public bool AddToRowMask(int i, int num)
+        {
+            // Create a bitmask with a 1 in the num spot
+            int numMask = 1 << (num - 1);
+            if ((_rowMasks[i] & numMask) != 0)
+            {
+                // Number is already in the mask
+                return false;
+            }
+
+            _rowMasks[i] |= numMask;
+            // Successfuly added number to mask
+            return true;
+        }
+
+        public bool AddToColumnMask(int i, int num)
+        {
+            // Create a bitmask with a 1 in the num spot
+            int numMask = 1 << (num - 1);
+            if ((_columnMasks[i] & numMask) != 0)
+            {
+                // Number is already in the mask
+                return false;
+            }
+
+            _columnMasks[i] |= numMask;
+            // Successfuly added number to mask
+            return true;
+        }
+
+        public bool AddToSquareMask(int i, int j, int num)
+        {
+            // Create a bitmask with a 1 in the num spot
+            int numMask = 1 << (num - 1);
+            if ((_squareMasks[i, j] & numMask) != 0)
+            {
+                // Number is already in the mask
+                return false;
+            }
+
+            _squareMasks[i, j] |= numMask;
+            // Successfuly added number to mask
+            return true;
+        }
+
+        public bool RemoveFromRowMask(int i, int num)
+        {
+            int numMask = 1 << (num - 1);
+            if ((_rowMasks[i] & numMask) == 0)
+            {
+                // Number isn't in the mask
+                return false;
+            }
+
+            _rowMasks[i] &= (~numMask);
+            // Successfuly removed number from mask
+            return true;
+        }
+
+        public bool RemoveFromColumnMask(int i, int num)
+        {
+            int numMask = 1 << (num - 1);
+            if ((_columnMasks[i] & numMask) == 0)
+            {
+                // Number isn't in the mask
+                return false;
+            }
+
+            _columnMasks[i] &= (~numMask);
+            // Successfuly removed number from mask
+            return true;
+        }
+
+        public bool RemoveFromSquareMask(int i, int j, int num)
+        {
+            int numMask = 1 << (num - 1);
+            if ((_squareMasks[i, j] & numMask) == 0)
+            {
+                // Number isn't in the mask
+                return false;
+            }
+
+            _squareMasks[i, j] &= (~numMask);
+            // Successfuly removed number from mask
+            return true;
         }
     }
 }
