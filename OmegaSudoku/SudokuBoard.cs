@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
-    public class SudokuBoard
+    public class SudokuBoard : ICloneable
     {
         // The length of one side of the board
         private int _size;
@@ -41,6 +41,16 @@ namespace OmegaSudoku
             _columnMasks = new int[size];
             _sizeRoot = (int)Math.Sqrt(size);
             _squareMasks = new int[_sizeRoot, _sizeRoot];
+        }
+
+        private SudokuBoard(int size, int sizeRoot, int[,] board, int[] rowMasks, int[] columnMasks, int[,] squareMasks)
+        {
+            _size = size;
+            _sizeRoot = sizeRoot;
+            _board = board;
+            _rowMasks = rowMasks;
+            _columnMasks = columnMasks;
+            _squareMasks = squareMasks;
         }
 
         public bool LoadBoard(int[] newBoard)
@@ -191,6 +201,11 @@ namespace OmegaSudoku
             _squareMasks[i, j] &= (~numMask);
             // Successfuly removed number from mask
             return true;
+        }
+
+        public object Clone()
+        {
+            return new SudokuBoard(_size, _sizeRoot, (int[,])_board.Clone(), (int[])_rowMasks.Clone(), (int[])_columnMasks.Clone(), (int[,])_squareMasks.Clone());
         }
     }
 }
