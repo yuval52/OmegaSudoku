@@ -69,18 +69,48 @@ namespace OmegaSudoku
 
         private (int rowIndex, int columnIndex) FindNextCell(SudokuBoard board)
         {
+
+            int bestRow = -1;
+            int bestColumn = -1;
+            int minOptions = board.GetSize();
+
             for (int i = 0; i < board.GetSize(); i++)
             {
                 for (int j = 0; j < board.GetSize(); j++)
                 {
                     if (board.GetCell(i, j) == 0)
                     {
-                        return (i, j);
+                        // Found empty cell
+                        int cellMask = board.GetCellMask(i, j);
+                        int options = NumberOfOptions(cellMask, board.GetSize());
+                        if (options < minOptions)
+                        {
+                            // Cell has the least possible numbers so far
+                            minOptions = options;
+                            bestRow = i;
+                            bestColumn = j;
+                        }
                     }
                 }
             }
 
-            return (-1, -1);
+            // Return the cell with the least numbers possible
+            return (bestRow, bestColumn);
+        }
+
+        private int NumberOfOptions(int mask, int size)
+        {
+            int countSetBits = 0;
+
+            while (mask > 0)
+            {
+                // Count how many bits are set to 1
+                mask &= (mask - 1);
+                countSetBits++;
+            }
+
+            // The number of options is the bits that arent 1
+            return size - countSetBits;
         }
 
     }
