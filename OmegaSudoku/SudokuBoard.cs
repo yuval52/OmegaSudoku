@@ -13,7 +13,7 @@ namespace OmegaSudoku
         // The square root of the side length, used as square size
         private int _sizeRoot;
         // The values of the board
-        public int[,] _board;
+        private int[,] _board;
 
         // An array of bitmasks for values in a row
         private int[] _rowMasks;
@@ -30,6 +30,12 @@ namespace OmegaSudoku
         public int GetSizeRoot()
         {
             return _sizeRoot;
+        }
+
+        public int[,] GetBoard()
+        {
+            // Temporary getter
+            return _board;
         }
 
         public SudokuBoard(int size)
@@ -200,6 +206,50 @@ namespace OmegaSudoku
 
             _squareMasks[i, j] &= (~numMask);
             // Successfuly removed number from mask
+            return true;
+        }
+
+        public bool PlaceNumber(int i, int j, int num)
+        {
+            if (!AddToRowMask(i, num))
+            {
+                return false;
+            }
+            if (!AddToColumnMask(j, num))
+            {
+                return false;
+            }
+            int squareI = (int)(i / _sizeRoot);
+            int squareJ = (int)(j / _sizeRoot);
+            if (!AddToSquareMask(squareI, squareJ, num))
+            {
+                return false;
+            }
+
+            // Successfuly added number to board
+            _board[i, j] = num;
+            return true;
+        }
+
+        public bool UndoPlacement(int i, int j, int num)
+        {
+            if (!RemoveFromRowMask(i, num))
+            {
+                return false;
+            }
+            if (!RemoveFromColumnMask(j, num))
+            {
+                return false;
+            }
+            int squareI = (int)(i / _sizeRoot);
+            int squareJ = (int)(j / _sizeRoot);
+            if (!RemoveFromSquareMask(squareI, squareJ, num))
+            {
+                return false;
+            }
+
+            // Successfuly removed number from board
+            _board[i, j] = 0;
             return true;
         }
 
