@@ -9,25 +9,10 @@ bool valid = board.LoadBoard([1, 2, 4, 3,
 
 Console.WriteLine(valid);
 
-int[,] boardMatrix = board.GetBoard();
-for (int i = 0; i < 4; i++)
-{
-    for (int j = 0; j < 4; j++)
-    {
-        Console.Write(boardMatrix[i, j].ToString() + ", ");
-    }
-    Console.Write("\n");
-}
+board.PrintBoard();
 
-bool placed = board.PlaceNumber(2, 2, 3);
+bool placed = board.PlaceNumber(2, 2, 1);
 
 Console.WriteLine(placed);
 
-for (int i = 0; i < 4; i++)
-{
-    for (int j = 0; j < 4; j++)
-    {
-        Console.Write(boardMatrix[i, j].ToString() + ", ");
-    }
-    Console.Write("\n");
-}
+board.PrintBoard();

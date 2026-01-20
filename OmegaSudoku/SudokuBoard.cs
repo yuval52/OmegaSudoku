@@ -253,6 +253,38 @@ namespace OmegaSudoku
             return true;
         }
 
+        public void PrintBoard()
+        {
+            Console.Write(" ");
+            for (int i = 0; i < _size+1; i++)
+            {
+                Console.Write("---");
+            }
+            Console.Write("\n");
+            for (int i = 0; i < _size; i++)
+            {
+                Console.Write("|");
+                for (int j = 0; j < _size; j++)
+                {
+                    string numStr = " ".PadLeft(2);
+                    if (_board[i, j] != 0)
+                    {
+                        numStr = _board[i, j].ToString().PadLeft(2);
+                    }
+                    Console.Write(numStr);
+                    string spacer = "|".PadLeft(2);
+                    Console.Write(spacer);
+                }
+                Console.Write("\n");
+                Console.Write(" ");
+                for (int j = 0; j < _size+1; j++)
+                {
+                    Console.Write("---");
+                }
+                Console.Write("\n");
+            }
+        }
+
         public object Clone()
         {
             return new SudokuBoard(_size, _sizeRoot, (int[,])_board.Clone(), (int[])_rowMasks.Clone(), (int[])_columnMasks.Clone(), (int[,])_squareMasks.Clone());
