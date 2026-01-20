@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OmegaSudoku
 {
-    public class SudokuBoard : ICloneable
+    public class SudokuBoard
     {
         // The length of one side of the board
         private int _size;
@@ -279,9 +279,5 @@ namespace OmegaSudoku
             }
         }
 
-        public object Clone()
-        {
-            return new SudokuBoard(_size, _sizeRoot, (int[,])_board.Clone(), (int[])_rowMasks.Clone(), (int[])_columnMasks.Clone(), (int[,])_squareMasks.Clone());
-        }
     }
 }

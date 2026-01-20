@@ -9,25 +9,26 @@ namespace OmegaSudoku
 {
     public class BacktrackingSolver
     {
-        private SudokuBoard _originalBoard;
+        private SudokuBoard _board;
+        private Stack<int[]> movesStack;
         public BacktrackingSolver(SudokuBoard board)
         {
-            _originalBoard = board;
+            _board = board;
+            movesStack = new Stack<int[]>();
         }
 
         public bool SolveBacktracking()
         {
-            // Start thr backtracking with the original board
-            return Backtrack(_originalBoard);
+            // Start the backtracking
+            return Backtrack();
         }
 
-        private bool Backtrack(SudokuBoard board)
+        private bool Backtrack()
         {
-            SudokuBoard cloneBoard = (SudokuBoard)board.Clone();
             // The next cell to backtrack through
             int nextRow;
             int nextColumn;
-            (nextRow, nextColumn) = FindNextCell(cloneBoard);
+            (nextRow, nextColumn) = FindNextCell(_board);
 
             if (nextRow == -1 && nextColumn == -1)
             {
@@ -35,31 +36,29 @@ namespace OmegaSudoku
                 return true;
             }
 
-            int cellMask = cloneBoard.GetCellMask(nextRow, nextColumn);
+            int cellMask = _board.GetCellMask(nextRow, nextColumn);
 
-            for (int i = 1; i <= cloneBoard.GetSize(); i++)
+            for (int i = 1; i <= _board.GetSize(); i++)
             {
                 // Create a mask of the number to try
                 int numMask = 1 << (i - 1);
                 if ((cellMask & numMask) == 0)
                 {
                     // Number is available for cell
-                    if (cloneBoard.PlaceNumber(nextRow, nextColumn, i))
+                    if (PerformMove(nextRow, nextColumn, i))
                     {
                         // Placed number
                         // Backtrack again
-                        //Console.WriteLine(nextRow.ToString() + ", " +  nextColumn.ToString() + ", num: " + i.ToString());
-                        bool solved = Backtrack(cloneBoard);
+                        bool solved = Backtrack();
                         if (solved)
                         {
                             // A solution was found in this branch
-                            // This number placement is good, place number on original board
-                            _originalBoard.PlaceNumber(nextRow, nextColumn, i);
+
                             return true;
                         }
                         // Solution was not found in this branch
-                        // Remove number placement before trying next number
-                        cloneBoard.UndoPlacement(nextRow, nextColumn, i);
+                        // Undo number placement before trying next number
+                        UndoMove();
                     }
 
                 }
@@ -96,6 +95,22 @@ namespace OmegaSudoku
 
             // Return the cell with the least numbers possible
             return (bestRow, bestColumn);
+        }
+
+        private bool PerformMove(int row, int column, int num)
+        {
+            // Push the move's info to the stack
+            int[] move = [row, column, num];
+            movesStack.Push(move);
+
+            return _board.PlaceNumber(row, column, num);
+        }
+
+        private bool UndoMove()
+        {
+            // Undo the last move on the stack
+            int[] move = movesStack.Pop();
+            return _board.UndoPlacement(move[0], move[1], move[2]);
         }
 
         private int NumberOfOptions(int mask, int size)
