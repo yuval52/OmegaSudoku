@@ -32,10 +32,9 @@ namespace OmegaSudoku
             return _sizeRoot;
         }
 
-        public int[,] GetBoard()
+        public int GetCell(int i, int j)
         {
-            // Temporary getter
-            return _board;
+            return _board[i, j];
         }
 
         public SudokuBoard(int size)
@@ -213,10 +212,12 @@ namespace OmegaSudoku
         {
             if (!AddToRowMask(i, num))
             {
+                // Already in row
                 return false;
             }
             if (!AddToColumnMask(j, num))
             {
+                // Already in column
                 return false;
             }
             int squareI = (int)(i / _sizeRoot);
@@ -255,33 +256,26 @@ namespace OmegaSudoku
 
         public void PrintBoard()
         {
-            Console.Write(" ");
-            for (int i = 0; i < _size+1; i++)
-            {
-                Console.Write("---");
-            }
-            Console.Write("\n");
+            int totalWidth = (_size * 4) + 1;
+            string horizontalDivider = new string('-', totalWidth);
+
+            Console.WriteLine(horizontalDivider);
+
             for (int i = 0; i < _size; i++)
             {
                 Console.Write("|");
+
                 for (int j = 0; j < _size; j++)
                 {
-                    string numStr = " ".PadLeft(2);
-                    if (_board[i, j] != 0)
-                    {
-                        numStr = _board[i, j].ToString().PadLeft(2);
-                    }
-                    Console.Write(numStr);
-                    string spacer = "|".PadLeft(2);
-                    Console.Write(spacer);
+                    int value = _board[i, j];
+                    string toPrint = (value == 0) ? " " : value.ToString();
+
+                    Console.Write($" {toPrint} |");
                 }
-                Console.Write("\n");
-                Console.Write(" ");
-                for (int j = 0; j < _size+1; j++)
-                {
-                    Console.Write("---");
-                }
-                Console.Write("\n");
+
+                Console.WriteLine();
+
+                Console.WriteLine(horizontalDivider);
             }
         }
 
