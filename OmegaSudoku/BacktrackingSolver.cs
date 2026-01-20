@@ -25,10 +25,13 @@ namespace OmegaSudoku
 
         private bool Backtrack()
         {
+            // Use non backtracking strategies first
+            int changes = StrategySolver.ApplyStrategies(_board, movesStack);
+
             // The next cell to backtrack through
             int nextRow;
             int nextColumn;
-            (nextRow, nextColumn) = FindNextCell(_board);
+            (nextRow, nextColumn) = FindNextCell();
 
             if (nextRow == -1 && nextColumn == -1)
             {
@@ -63,25 +66,29 @@ namespace OmegaSudoku
 
                 }
             }
+
+            // Branch has no solution, move back up
+            // Undo changes done at the start of this call
+            UndoMoves(changes);
             return false;
         }
 
-        private (int rowIndex, int columnIndex) FindNextCell(SudokuBoard board)
+        private (int rowIndex, int columnIndex) FindNextCell()
         {
 
             int bestRow = -1;
             int bestColumn = -1;
-            int minOptions = board.GetSize();
+            int minOptions = _board.GetSize();
 
-            for (int i = 0; i < board.GetSize(); i++)
+            for (int i = 0; i < _board.GetSize(); i++)
             {
-                for (int j = 0; j < board.GetSize(); j++)
+                for (int j = 0; j < _board.GetSize(); j++)
                 {
-                    if (board.GetCell(i, j) == 0)
+                    if (_board.GetCell(i, j) == 0)
                     {
                         // Found empty cell
-                        int cellMask = board.GetCellMask(i, j);
-                        int options = NumberOfOptions(cellMask, board.GetSize());
+                        int cellMask = _board.GetCellMask(i, j);
+                        int options = SudokuUtil.NumberOfOptions(cellMask, _board.GetSize());
                         if (options < minOptions)
                         {
                             // Cell has the least possible numbers so far
@@ -106,26 +113,22 @@ namespace OmegaSudoku
             return _board.PlaceNumber(row, column, num);
         }
 
+        private bool UndoMoves(int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (!UndoMove())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private bool UndoMove()
         {
             // Undo the last move on the stack
             int[] move = movesStack.Pop();
             return _board.UndoPlacement(move[0], move[1], move[2]);
-        }
-
-        private int NumberOfOptions(int mask, int size)
-        {
-            int countSetBits = 0;
-
-            while (mask > 0)
-            {
-                // Count how many bits are set to 1
-                mask &= (mask - 1);
-                countSetBits++;
-            }
-
-            // The number of options is the bits that arent 1
-            return size - countSetBits;
         }
 
     }

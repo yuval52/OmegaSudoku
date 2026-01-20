@@ -48,16 +48,6 @@ namespace OmegaSudoku
             _squareMasks = new int[_sizeRoot, _sizeRoot];
         }
 
-        private SudokuBoard(int size, int sizeRoot, int[,] board, int[] rowMasks, int[] columnMasks, int[,] squareMasks)
-        {
-            _size = size;
-            _sizeRoot = sizeRoot;
-            _board = board;
-            _rowMasks = rowMasks;
-            _columnMasks = columnMasks;
-            _squareMasks = squareMasks;
-        }
-
         public bool LoadBoard(int[] newBoard)
         {
             // For now assume array length was already checked to be correct

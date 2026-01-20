@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OmegaSudoku
+{
+    public static class SudokuUtil
+    {
+
+        public static int NumberOfOptions(int mask, int size)
+        {
+            int countSetBits = 0;
+
+            while (mask > 0)
+            {
+                // Count how many bits are set to 1
+                mask &= (mask - 1);
+                countSetBits++;
+            }
+
+            // The number of options is the bits that arent 1
+            return size - countSetBits;
+        }
+    }
+}
