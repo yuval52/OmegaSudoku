@@ -75,9 +75,19 @@ namespace OmegaSudoku
             // Check each row
             for (int i = 0; i < board.GetSize(); i++)
             {
+                int rowMask = board.GetRowMask(i);
+
                 // For each number check how many cells can contain it
                 for (int num = 1; num < board.GetSize() + 1; num++)
                 {
+                    int numMask = 1 << (num - 1);
+                    // Check if number is already in the row
+                    if ((rowMask & numMask) != 0)
+                    {
+                        // Skip the number
+                        continue;
+                    }
+
                     int possibleCells = 0;
                     int lastColumn = -1;
 
@@ -88,7 +98,6 @@ namespace OmegaSudoku
                         if (board.GetCell(i, j) == 0)
                         {
                             int cellMask = board.GetCellMask(i, j);
-                            int numMask = 1 << (num - 1);
                             if ((cellMask & numMask) == 0)
                             {
                                 // Number is possible in this cell
@@ -123,9 +132,19 @@ namespace OmegaSudoku
             // Check each column
             for (int j = 0; j < board.GetSize(); j++)
             {
+                int columnMask = board.GetColumnMask(j);
+
                 // For each number check how many cells can contain it
                 for (int num = 1; num < board.GetSize() + 1; num++)
                 {
+                    int numMask = 1 << (num - 1);
+                    // Check if number is already in the column
+                    if ((columnMask & numMask) != 0)
+                    {
+                        // Skip the number
+                        continue;
+                    }
+
                     int possibleCells = 0;
                     int lastRow = -1;
 
@@ -136,7 +155,7 @@ namespace OmegaSudoku
                         if (board.GetCell(i, j) == 0)
                         {
                             int cellMask = board.GetCellMask(i, j);
-                            int numMask = 1 << (num - 1);
+
                             if ((cellMask & numMask) == 0)
                             {
                                 // Number is possible in this cell
