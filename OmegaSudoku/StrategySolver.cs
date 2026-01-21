@@ -18,7 +18,10 @@ namespace OmegaSudoku
             changes += FillSingleOption(board, movesStack);
 
             // Find rows where only one cell has a number available and fill it
-            //changes += OnlyViableCellInRow(board, movesStack);
+            changes += HiddenSingelsRow(board, movesStack);
+
+            // Find columns where only one cell has a number available and fill it
+            changes += HiddenSingelsColumn(board, movesStack);
 
             // Return the number of changes this function made to the board
             return changes;
@@ -64,53 +67,98 @@ namespace OmegaSudoku
             return changes;
         }
 
-        public static int OnlyViableCellInRow(SudokuBoard board, Stack<int[]> movesStack)
+        public static int HiddenSingelsRow(SudokuBoard board, Stack<int[]> movesStack)
         {
             // Find rows where only one cell has a number available and fill it
             int changes = 0;
+
+            // Check each row
             for (int i = 0; i < board.GetSize(); i++)
             {
-                // Find amount of times numbers are possible in row
-                int[] possibleCellsForNumbers = new int[board.GetSize()];
-                // For every cell in the row count the possibilities
-                for (int j = 0; j < board.GetSize(); j++)
+                // For each number check how many cells can contain it
+                for (int num = 1; num < board.GetSize() + 1; num++)
                 {
-                    int cellMask = board.GetCellMask(i, j);
-                    for (int num = 0; num < board.GetSize(); num++)
-                    {
-                        int numMask = 1 << num;
-                        if (((cellMask & numMask) == 0) && (board.GetCell(i, j) != 0))
-                        {
-                            // Number is available in cell
-                            possibleCellsForNumbers[num]++;
-                        }
-                    }
-                }
+                    int possibleCells = 0;
+                    int lastColumn = -1;
 
-                for (int num = 1; num <= board.GetSize(); num++)
-                {
-                    if (possibleCellsForNumbers[num - 1] == 1)
+                    // Scan every cell in the current row
+                    for (int j = 0; j < board.GetSize(); j++)
                     {
-                        int numMask = 1 << (num - 1);
-                        // A number is only possible in one cell in the row
-                        for (int j = 0; j < board.GetSize(); j++)
+                        // Only check empty cells
+                        if (board.GetCell(i, j) == 0)
                         {
                             int cellMask = board.GetCellMask(i, j);
-                            if (((cellMask & numMask) == 0) && (board.GetCell(i, j) != 0))
+                            int numMask = 1 << (num - 1);
+                            if ((cellMask & numMask) == 0)
                             {
-                                // Number is available in cell
-                                board.PlaceNumber(i, j, num);
-                                // Add change to stack
-                                int[] move = [i, j, num];
-                                Console.WriteLine(i.ToString() + ", " + j.ToString() + ", " + (num).ToString());
-                                movesStack.Push(move);
-                                changes++;
-                                break;
+                                // Number is possible in this cell
+                                possibleCells++;
+                                lastColumn = j;
                             }
                         }
                     }
+
+                    if (possibleCells == 1)
+                    {
+                        // The number is only possible in one cell in the row, fill it
+                        board.PlaceNumber(i, lastColumn, num);
+
+                        // Add change to stack
+                        int[] move = [i, lastColumn, num];
+                        movesStack.Push(move);
+                        changes++;
+                    }
                 }
             }
+
+            // Return the number of changes this function made to the board
+            return changes;
+        }
+
+        public static int HiddenSingelsColumn(SudokuBoard board, Stack<int[]> movesStack)
+        {
+            // Find cokumns where only one cell has a number available and fill it
+            int changes = 0;
+
+            // Check each column
+            for (int j = 0; j < board.GetSize(); j++)
+            {
+                // For each number check how many cells can contain it
+                for (int num = 1; num < board.GetSize() + 1; num++)
+                {
+                    int possibleCells = 0;
+                    int lastRow = -1;
+
+                    // Scan every cell in the current column
+                    for (int i = 0; i < board.GetSize(); i++)
+                    {
+                        // Only check empty cells
+                        if (board.GetCell(i, j) == 0)
+                        {
+                            int cellMask = board.GetCellMask(i, j);
+                            int numMask = 1 << (num - 1);
+                            if ((cellMask & numMask) == 0)
+                            {
+                                // Number is possible in this cell
+                                possibleCells++;
+                                lastRow = i;
+                            }
+                        }
+                    }
+
+                    if (possibleCells == 1)
+                    {
+                        // The number is only possible in one cell in the column, fill it
+                        board.PlaceNumber(lastRow, j, num);
+
+                        // Add change to stack
+                        int[] move = [lastRow, j, num];
+                        movesStack.Push(move);
+                        changes++;
+                    }
+                }
+            }
+
             // Return the number of changes this function made to the board
             return changes;
         }
