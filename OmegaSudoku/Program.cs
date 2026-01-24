@@ -1,112 +1,35 @@
 ﻿using OmegaSudoku;
 
-//SudokuBoard board = new SudokuBoard(4);
+try
+{
+    SudokuBoard board = new SudokuBoard(9);
+    //int[] sudokuArr = InputValidation.ConvertInput("800000000003600000070090200050007000000045700000100030001000068008500010090000400");
+    int[] sudokuArr = InputValidation.ConvertInput("000000068900000002000400500041000000000035000050000000000800010300000700000100400");
+    bool valid = board.LoadBoard(sudokuArr);
 
-//bool valid = board.LoadBoard([0, 3, 4, 0,
-//                              4, 0, 0, 2,
-//                              1, 0, 0, 3,
-//                              0, 2, 1, 0]);
+    Console.WriteLine("Initial board:");
+    board.PrintBoard();
 
-SudokuBoard board = new SudokuBoard(9);
+    BacktrackingSolver solver = new BacktrackingSolver(board);
 
-//bool valid = board.LoadBoard([6, 0, 0, 4, 1, 0, 3, 0, 8,
-//                              8, 0, 5, 0, 6, 3, 4, 0, 0,
-//                              7, 3, 0, 0, 2, 0, 0, 0, 1,
-//                              0, 0, 6, 1, 5, 7, 0, 0, 2,
-//                              5, 7, 0, 0, 0, 4, 1, 0, 6,
-//                              1, 2, 0, 0, 9, 6, 0, 4, 0,
-//                              3, 0, 0, 0, 0, 0, 0, 8, 0,
-//                              0, 6, 9, 0, 3, 0, 0, 5, 0,
-//                              0, 0, 7, 0, 4, 0, 0, 1, 0]);
+    DateTime before = DateTime.Now;
 
-bool valid = board.LoadBoard([8, 0, 0, 0, 0, 0, 0, 0, 0,
-                              0, 0, 3, 6, 0, 0, 0, 0, 0,
-                              0, 7, 0, 0, 9, 0, 2, 0, 0,
-                              0, 5, 0, 0, 0, 7, 0, 0, 0,
-                              0, 0, 0, 0, 4, 5, 7, 0, 0,
-                              0, 0, 0, 1, 0, 0, 0, 3, 0,
-                              0, 0, 1, 0, 0, 0, 0, 6, 8,
-                              0, 0, 8, 5, 0, 0, 0, 1, 0,
-                              0, 9, 0, 0, 0, 0, 4, 0, 0]);
+    bool solved = solver.SolveBacktracking();
 
-//bool valid = board.LoadBoard([0, 0, 0, 0, 0, 0, 0, 6, 8,
-//                              9, 0, 0, 0, 0, 0, 0, 0, 2,
-//                              0, 0, 0, 4, 0, 0, 5, 0, 0,
-//                              0, 4, 1, 0, 0, 0, 0, 0, 0,
-//                              0, 0, 0, 0, 3, 5, 0, 0, 0,
-//                              0, 5, 0, 0, 0, 0, 0, 0, 0,
-//                              0, 0, 0, 8, 0, 0, 0, 1, 0,
-//                              3, 0, 0, 0, 0, 0, 7, 0, 0,
-//                              0, 0, 0, 1, 0, 0, 4, 0, 0]);
+    DateTime after = DateTime.Now;
 
-//bool valid = board.LoadBoard([0, 0, 0, 0, 0, 0, 0, 0, 1,
-//                              7, 6, 0, 0, 0, 1, 0, 0, 3,
-//                              5, 0, 0, 0, 0, 7, 8, 9, 6,
-//                              0, 0, 0, 7, 0, 0, 3, 0, 0,
-//                              2, 0, 4, 0, 0, 5, 0, 0, 8,
-//                              0, 7, 0, 0, 2, 0, 0, 0, 0,
-//                              9, 2, 7, 0, 3, 0, 0, 0, 0,
-//                              4, 0, 0, 0, 0, 0, 0, 0, 0,
-//                              0, 8, 0, 9, 0, 2, 0, 6, 0]);
+    TimeSpan time = after - before;
 
-//SudokuBoard board = new SudokuBoard(16);
+    if (solved)
+    {
+        Console.WriteLine("Solved board:");
+        board.PrintBoard();
 
-//bool valid = board.LoadBoard([10, 0, 0, 0, 0, 0, 0, 0, 0, 12, 6, 0, 1, 0, 15, 2,
-//                              14, 0, 1, 12, 0, 0, 4, 7, 11, 0, 0, 3, 0, 0, 10, 0,
-//                              0, 0, 0, 8, 0, 0, 0, 0, 0, 10, 2, 5, 0, 0, 0, 0,
-//                              13, 2, 0, 6, 0, 5, 0, 0, 0, 0, 16, 7, 3, 0, 0, 0,
-//                              0, 0, 4, 9, 0, 12, 14, 0, 3, 0, 0, 0, 2, 7, 0, 0,
-//                              0, 0, 14, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 5,
-//                              7, 0, 10, 3, 2, 4, 0, 0, 12, 14, 9, 0, 16, 1, 8, 13,
-//                              0, 0, 0, 0, 3, 16, 7, 10, 0, 11, 5, 1, 0, 0, 12, 0,
-//                              0, 0, 6, 13, 0, 0, 0, 0, 0, 7, 11, 0, 12, 3, 0, 0,
-//                              9, 4, 0, 0, 6, 0, 0, 12, 10, 0, 13, 0, 15, 16, 2, 0,
-//                              0, 0, 12, 0, 0, 11, 10, 1, 0, 0, 0, 0, 0, 6, 0, 7,
-//                              11, 0, 16, 0, 5, 8, 15, 0, 0, 0, 0, 12, 14, 4, 0, 0,
-//                              12, 0, 9, 4, 0, 0, 0, 0, 16, 0, 10, 0, 0, 0, 0, 14,
-//                              6, 15, 5, 11, 7, 0, 1, 0, 0, 0, 0, 9, 0, 0, 16, 0,
-//                              0, 8, 13, 0, 0, 0, 16, 5, 0, 4, 0, 0, 0, 10, 1, 3,
-//                              0, 0, 0, 16, 0, 15, 9, 0, 6, 0, 1, 13, 0, 5, 4, 8]);
-
-//bool valid = board.LoadBoard([0, 0, 0, 0, 0, 8, 3, 1, 0, 16, 0, 0, 0, 13, 0, 15,
-//                              0, 0, 4, 0, 15, 2, 0, 7, 10, 0, 3, 8, 0, 0, 0, 0,
-//                              0, 0, 6, 5, 0, 10, 11, 0, 1, 0, 0, 0, 0, 0, 2, 0,
-//                              0, 0, 0, 9, 6, 0, 0, 0, 0, 0, 0, 14, 0, 10, 0, 8,
-//                              3, 6, 7, 0, 0, 4, 0, 0, 0, 0, 0, 0, 16, 0, 8, 0,
-//                              0, 5, 15, 0, 0, 12, 2, 0, 3, 11, 0, 0, 0, 0, 0, 0,
-//                              0, 12, 13, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 6, 10,
-//                              0, 0, 0, 4, 1, 0, 15, 0, 5, 0, 6, 10, 2, 9, 0, 0,
-//                              0, 0, 9, 12, 0, 6, 0, 0, 13, 0, 0, 5, 0, 0, 11, 0,
-//                              6, 0, 8, 15, 0, 0, 16, 0, 0, 0, 2, 0, 5, 0, 0, 0,
-//                              0, 0, 0, 0, 2, 13, 0, 3, 0, 15, 0, 0, 0, 1, 10, 0,
-//                              0, 0, 0, 14, 0, 0, 8, 0, 0, 10, 0, 0, 0, 12, 15, 4,
-//                              4, 2, 0, 0, 0, 11, 0, 13, 0, 0, 0, 3, 1, 0, 0, 0,
-//                              0, 0, 0, 0, 0, 3, 1, 0, 16, 0, 0, 12, 0, 0, 13, 6,
-//                              0, 0, 10, 0, 16, 0, 0, 0, 0, 0, 14, 0, 11, 7, 0, 0,
-//                              12, 16, 0, 0, 5, 9, 0, 0, 11, 0, 0, 7, 14, 0, 0, 3]);
-
-//Console.WriteLine(valid);
-
-Console.WriteLine("Initial board:");
-
-board.PrintBoard();
-
-BacktrackingSolver solver = new BacktrackingSolver(board);
-
-DateTime before = DateTime.Now;
-
-bool solved = solver.SolveBacktracking();
-
-DateTime after = DateTime.Now;
-
-TimeSpan time = after - before;
-
-//Console.WriteLine(solved);
-
-Console.WriteLine("Solved board:");
-
-board.PrintBoard();
-
-Console.WriteLine("\nSolve time:");
-
-Console.WriteLine(time.ToString());
+        Console.WriteLine("\nSolve time:");
+        Console.WriteLine(time.ToString());
+    }
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}
