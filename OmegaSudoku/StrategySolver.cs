@@ -23,6 +23,10 @@ namespace OmegaSudoku
             // Find columns where only one cell has a number available and fill it
             changes += HiddenSingelsColumn(board, movesStack);
 
+            // Find squares where only one cell has a number available and fill it
+            // Of note, seems to slow down the solving overall for some boards and barely speed up others, potentially disable
+            changes += HiddenSinglesSquare(board, movesStack);
+
             // Return the number of changes this function made to the board
             return changes;
         }
@@ -176,6 +180,79 @@ namespace OmegaSudoku
                         changes++;
                     }
                 }
+            }
+
+            // Return the number of changes this function made to the board
+            return changes;
+        }
+
+        public static int HiddenSinglesSquare(SudokuBoard board, Stack<int[]> movesStack)
+        {
+            // Find squares where only one cell has a number available and fill it
+            int changes = 0;
+
+            // Check each square
+            for (int square = 0; square < board.GetSize(); square++)
+            {
+                // Calculate the coordinates of the square
+                int squareRow = square / board.GetSizeRoot();
+                int squareCol = square % board.GetSizeRoot();
+
+                // Calculate the position on the board of the start of the square
+                int startRow = squareRow * board.GetSizeRoot();
+                int startCol = squareCol * board.GetSizeRoot();
+
+                int squareMask = board.GetSquareMask(squareRow, squareCol);
+
+                // For each number check how many cells can contain it
+                for (int num = 1; num < board.GetSize() + 1; num++)
+                {
+                    int numMask = 1 << (num - 1);
+                    // Check if number is already in the square
+                    if ((squareMask & numMask) != 0)
+                    {
+                        // Skip the number
+                        continue;
+                    }
+
+                    int possibleCells = 0;
+                    int lastRow = -1;
+                    int lastCol = -1;
+
+                    // Scan every cell in the current square
+                    for (int i = startRow; i < startRow + board.GetSizeRoot(); i++)
+                    {
+                        for (int j = startCol; j < startCol + board.GetSizeRoot(); j++)
+                        {
+                            // Only check empty cells
+                            if (board.GetCell(i, j) == 0)
+                            {
+                                int cellMask = board.GetCellMask(i, j);
+
+                                if ((cellMask & numMask) == 0)
+                                {
+                                    // Number is possible in this cell
+                                    possibleCells++;
+                                    lastRow = i;
+                                    lastCol = j;
+                                }
+                            }
+                        }    
+                    }
+
+                    if (possibleCells == 1)
+                    {
+                        // The number is only possible in one cell in the square, fill it
+                        board.PlaceNumber(lastRow, lastCol, num);
+
+                        // Add change to stack
+                        int[] move = [lastRow, lastCol, num];
+                        movesStack.Push(move);
+                        changes++;
+                    }
+
+                }
+
             }
 
             // Return the number of changes this function made to the board
