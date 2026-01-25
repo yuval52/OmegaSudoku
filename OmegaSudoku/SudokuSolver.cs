@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OmegaSudoku.Exceptions;
 
 namespace OmegaSudoku
 {
@@ -24,8 +25,7 @@ namespace OmegaSudoku
             if (!valid)
             {
                 // Board is invalid
-                // TODO: throw custom exception
-                return "";
+                throw new InvalidBoardException();
             }
 
             // Create the backtracking solver object
