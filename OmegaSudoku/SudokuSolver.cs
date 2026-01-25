@@ -46,8 +46,7 @@ namespace OmegaSudoku
             if (!solved)
             {
                 // Board is unsolveable
-                // TODO: throw custom exception
-                return "";
+                throw new UnsolveableBoardException();
             }
 
             // Print the solved board
