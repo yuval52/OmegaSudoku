@@ -269,5 +269,22 @@ namespace OmegaSudoku
             }
         }
 
+        public override string ToString()
+        {
+            // Convert the board into string representation
+            string boardString = "";
+
+            for (int i = 0; i < _size; i++)
+            {
+                for (int j = 0; j < _size; j++)
+                {
+                    // Append every number to the string
+                    boardString += _board[i, j];
+                }
+            }
+
+            return boardString;
+        }
+
     }
 }

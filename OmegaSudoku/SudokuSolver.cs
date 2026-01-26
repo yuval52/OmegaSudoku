@@ -58,9 +58,8 @@ namespace OmegaSudoku
             Console.WriteLine(time.ToString());
             Console.WriteLine();
 
-            // Temporary return
-            // Will return solved board in the same format as the input board
-            return "";
+            // Return solved board in the same format as the input board
+            return board.ToString();
         }
     }
 }
