@@ -11,8 +11,8 @@ namespace OmegaSudoku.Tests
     {
         public static void TestLargeFile()
         {
-            int numberOfLines = 10000;
-            // Currently using smaller 10,000 sudokus file
+            int numberOfLines = 1000000;
+            // Currently using smaller 10,000 sudokus file "sudokuSet.csv"
             // Full 9,000,000 sudokus file is too large for github, so it was added to the gitignore
             // Full file is called "sudoku.csv"
             List<string[]> rows = ReadCSVFile("Tests/sudokuSet.csv", numberOfLines);
@@ -45,7 +45,7 @@ namespace OmegaSudoku.Tests
             TimeSpan time = after - before;
 
             // Print if the solves were correct
-            Console.WriteLine("All the boards solved correctly:");
+            Console.WriteLine("All boards solved correctly:");
             Console.WriteLine(allTrue);
 
             // Print the solve time
