@@ -61,5 +61,37 @@ namespace OmegaSudoku
             // Return solved board in the same format as the input board
             return board.ToString();
         }
+
+        public static string TestSolver(string sudokuString)
+        {
+            // Sudoku solver without prints for testing
+            // Convert the input string to an array
+            int[] sudokuArr = InputValidation.ConvertInput(sudokuString);
+
+            // Create new sudoku board and load the array into it
+            SudokuBoard board = new SudokuBoard(9);
+            bool valid = board.LoadBoard(sudokuArr);
+
+            if (!valid)
+            {
+                // Board is invalid
+                throw new InvalidBoardException();
+            }
+
+            // Create the backtracking solver object
+            BacktrackingSolver solver = new BacktrackingSolver(board);
+
+            // Run the solver algorithm
+            bool solved = solver.SolveBacktracking();
+
+            if (!solved)
+            {
+                // Board is unsolveable
+                throw new UnsolveableBoardException();
+            }
+
+            // Return solved board in the same format as the input board
+            return board.ToString();
+        }
     }
 }
