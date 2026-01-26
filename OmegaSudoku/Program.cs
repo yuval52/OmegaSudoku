@@ -1,18 +1,25 @@
 ﻿using OmegaSudoku;
 using OmegaSudoku.Tests;
 
-try
+Console.WriteLine("Welcome to the Omega sudoku solver!\n");
+while (true)
 {
-    //int[] sudokuArr = InputValidation.ConvertInput("800000000003600000070090200050007000000045700000100030001000068008500010090000400");
-    //int[] sudokuArr = InputValidation.ConvertInput("000000068900000002000400500041000000000035000050000000000800010300000700000100400");
-
-    //string solvedBoard = SudokuSolver.SolveSudoku("000000068900000002000400500041000000000035000050000000000800010300000700000100400");
-    //SudokuSolver.SolveSudoku("800000000003600000070090200050007000000045700000100030001000068008500010090000400");
-
-    //Console.WriteLine(solvedBoard);
-    LargeScaleTest.TestLargeFile();
+    try
+    {
+        string output = UserInterface.RunSudokuSolver();
+        if (output.Equals("quit"))
+        {
+            break;
+        }
+    } catch (Exception e)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("----------------------------------------------------------------");
+        Console.WriteLine("Error solving sudoku:");
+        Console.WriteLine(e.Message);
+        Console.WriteLine("----------------------------------------------------------------");
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+    
 }
-catch (Exception e)
-{
-    Console.WriteLine(e.Message);
-}
+
