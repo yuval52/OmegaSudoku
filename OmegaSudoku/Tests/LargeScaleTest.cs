@@ -11,7 +11,7 @@ namespace OmegaSudoku.Tests
     {
         public static void TestLargeFile()
         {
-            int numberOfLines = 1000000;
+            int numberOfLines = 10000;
             // Currently using smaller 10,000 sudokus file "sudokuSet.csv"
             // Full 9,000,000 sudokus file is too large for github, so it was added to the gitignore
             // Full file is called "sudoku.csv"
