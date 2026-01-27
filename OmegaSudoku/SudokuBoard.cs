@@ -260,12 +260,33 @@ namespace OmegaSudoku
                     int value = _board[i, j];
                     string toPrint = (value == 0) ? " " : value.ToString();
 
-                    Console.Write($" {toPrint} |");
+                    Console.Write($" {toPrint} ");
+
+                    if ((j + 1) % _sizeRoot == 0)
+                    {
+                        Console.Write("|");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write("|");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                 }
 
                 Console.WriteLine();
 
-                Console.WriteLine(horizontalDivider);
+                if ((i + 1) % _sizeRoot == 0)
+                {
+                    Console.WriteLine(horizontalDivider);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine(horizontalDivider);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                
             }
         }
 
