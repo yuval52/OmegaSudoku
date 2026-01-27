@@ -11,16 +11,29 @@ namespace OmegaSudoku.Tests
     {
         public static void TestLargeFile()
         {
-            int numberOfLines = 10000;
+            int numberOfLines = 1000000;
+            Console.WriteLine("----------------------------------------------------------------");
+            Console.WriteLine($"Loading {numberOfLines} sudokus from file");
+            Console.WriteLine("----------------------------------------------------------------\n");
             // Currently using smaller 10,000 sudokus file "sudokuSet.csv"
             // Full 9,000,000 sudokus file is too large for github, so it was added to the gitignore
             // Full file is called "sudoku.csv"
-            List<string[]> rows = ReadCSVFile("Tests/sudokuSet.csv", numberOfLines);
+            List<string[]> rows = ReadCSVFile("Tests/sudoku.csv", numberOfLines);
 
             bool allTrue = true;
 
+
             Console.WriteLine($"Solving {numberOfLines} sudokus from file:");
             Console.WriteLine("\nSolving...\n");
+
+            // Decide how many segments should the loading bar have
+            int loadingBarSegments = 20;
+            // Split sample into 10 parts
+            int tenthSize = numberOfLines / loadingBarSegments;
+
+            //Print start of loading bar
+            string emptyLoadingBar = new string(' ', loadingBarSegments);
+            Console.Write("[" + emptyLoadingBar + "]");
 
             // Messure the time before solving
             DateTime before = DateTime.Now;
@@ -35,8 +48,19 @@ namespace OmegaSudoku.Tests
                     allTrue = false;
                 }
 
+                if (i % tenthSize == 0)
+                {
+                    // Print loading bar progression
+                    string loadingBarDots = new string('-', i / tenthSize);
+                    string loadingBarSpaces = new string(' ', loadingBarSegments - (i / tenthSize));
+                    Console.Write("\r[" + loadingBarDots + loadingBarSpaces + "]");
+                }
+
                 //Console.WriteLine(isSolved);
             }
+
+            string fullLoadingBar = new string('-', loadingBarSegments);
+            Console.Write("\r[" + fullLoadingBar + "]\n\n");
 
             // Messure the time after solving
             DateTime after = DateTime.Now;
@@ -45,12 +69,12 @@ namespace OmegaSudoku.Tests
             TimeSpan time = after - before;
 
             // Print if the solves were correct
-            Console.WriteLine("All boards solved correctly:");
+            Console.WriteLine("All boards solved correctly:\n");
             Console.WriteLine(allTrue);
 
             // Print the solve time
             Console.WriteLine("\nSolve time:");
-            Console.WriteLine(time.ToString());
+            Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
             Console.WriteLine();
         }
 

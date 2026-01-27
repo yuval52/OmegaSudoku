@@ -11,7 +11,8 @@ while (true)
         {
             break;
         }
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("----------------------------------------------------------------");
@@ -20,6 +21,7 @@ while (true)
         Console.WriteLine("----------------------------------------------------------------");
         Console.ForegroundColor = ConsoleColor.White;
     }
-    
+
 }
 
+//LargeScaleTest.TestLargeFile();

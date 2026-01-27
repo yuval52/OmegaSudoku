@@ -55,7 +55,7 @@ namespace OmegaSudoku
 
             // Print the solve time
             Console.WriteLine("\nSolve time:");
-            Console.WriteLine(time.ToString());
+            Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
             Console.WriteLine();
 
             // Return solved board in the same format as the input board
