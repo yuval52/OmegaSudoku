@@ -7,11 +7,10 @@ using System.IO;
 
 namespace OmegaSudoku.Tests
 {
-    public static class LargeScaleTest
+    public static class FileTest
     {
-        public static void TestLargeFile()
+        public static void TestLargeFile(int numberOfLines)
         {
-            int numberOfLines = 1000000;
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine($"Loading {numberOfLines} sudokus from file");
             Console.WriteLine("----------------------------------------------------------------\n");
