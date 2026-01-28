@@ -14,6 +14,7 @@ namespace OmegaSudoku
         public static string RunSudokuSolver()
         {
             // Display the insturctions interface
+            Console.Clear();
             ShowInterface();
 
             // Wait for input
@@ -32,13 +33,22 @@ namespace OmegaSudoku
                 return "test";
             }
 
+            Console.Clear();
+            Console.WriteLine("Solving sudoku:");
+            Console.WriteLine(input + "\n");
+
+
             // Run the solver
             string result = SudokuSolver.SolveSudoku(input);
+
+            Console.WriteLine("Press enter to return to the main menu");
+            Console.ReadLine();
 
             return result;
         }
         public static void TestInterface()
         {
+            Console.Clear();
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("This test will run a large amount of sudokus from a dataset");
             Console.WriteLine("The original dataset contains 9 million sudokus and their solutions");
@@ -62,6 +72,9 @@ namespace OmegaSudoku
             }
 
             FileTest.TestLargeFile(number);
+
+            Console.WriteLine("Press enter to return to the main menu");
+            Console.ReadLine();
 
         }
         public static void ShowInterface()

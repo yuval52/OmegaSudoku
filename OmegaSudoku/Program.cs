@@ -9,6 +9,7 @@ while (true)
         string output = UserInterface.RunSudokuSolver();
         if (output.Equals("quit"))
         {
+            Console.WriteLine("Quitting the program...");
             break;
         }
     }
@@ -16,12 +17,12 @@ while (true)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("----------------------------------------------------------------");
-        Console.WriteLine("Error solving sudoku:");
+        Console.WriteLine("Encountered an error:");
         Console.WriteLine(e.Message);
         Console.WriteLine("----------------------------------------------------------------");
         Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine("Press enter to return to the main menu");
+        Console.ReadLine();
     }
 
 }
-
-//FileTest.TestLargeFile();
