@@ -77,9 +77,8 @@
                 // For each number check how many cells can contain it
                 for (int num = 1; num < board.GetSize() + 1; num++)
                 {
-                    int numMask = 1 << (num - 1);
                     // Check if number is already in the row
-                    if ((rowMask & numMask) != 0)
+                    if (SudokuUtil.IsNumberInMask(rowMask, num))
                     {
                         // Skip the number
                         continue;
@@ -95,7 +94,7 @@
                         if (board.GetCell(i, j) == 0)
                         {
                             int cellMask = board.GetCellMask(i, j);
-                            if ((cellMask & numMask) == 0)
+                            if (!SudokuUtil.IsNumberInMask(cellMask, num))
                             {
                                 // Number is possible in this cell
                                 possibleCells++;
@@ -134,9 +133,8 @@
                 // For each number check how many cells can contain it
                 for (int num = 1; num < board.GetSize() + 1; num++)
                 {
-                    int numMask = 1 << (num - 1);
                     // Check if number is already in the column
-                    if ((columnMask & numMask) != 0)
+                    if (SudokuUtil.IsNumberInMask(columnMask, num))
                     {
                         // Skip the number
                         continue;
@@ -153,7 +151,7 @@
                         {
                             int cellMask = board.GetCellMask(i, j);
 
-                            if ((cellMask & numMask) == 0)
+                            if (!SudokuUtil.IsNumberInMask(cellMask, num))
                             {
                                 // Number is possible in this cell
                                 possibleCells++;
@@ -200,9 +198,8 @@
                 // For each number check how many cells can contain it
                 for (int num = 1; num < board.GetSize() + 1; num++)
                 {
-                    int numMask = 1 << (num - 1);
                     // Check if number is already in the square
-                    if ((squareMask & numMask) != 0)
+                    if (SudokuUtil.IsNumberInMask(squareMask, num))
                     {
                         // Skip the number
                         continue;
@@ -222,7 +219,7 @@
                             {
                                 int cellMask = board.GetCellMask(i, j);
 
-                                if ((cellMask & numMask) == 0)
+                                if (!SudokuUtil.IsNumberInMask(cellMask, num))
                                 {
                                     // Number is possible in this cell
                                     possibleCells++;

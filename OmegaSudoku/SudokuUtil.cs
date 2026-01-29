@@ -17,5 +17,11 @@
             // The number of options is the bits that arent 1
             return size - countSetBits;
         }
+
+        public static bool IsNumberInMask(int mask, int num)
+        {
+            int numMask = 1 << (num - 1);
+            return (mask & numMask) != 0;
+        }
     }
 }
