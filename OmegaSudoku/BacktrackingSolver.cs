@@ -36,9 +36,7 @@
 
             for (int i = 1; i <= _board.GetSize(); i++)
             {
-                // Create a mask of the number to try
-                int numMask = 1 << (i - 1);
-                if ((cellMask & numMask) == 0)
+                if (!SudokuUtil.IsNumberInMask(cellMask, i))
                 {
                     // Number is available for cell
                     if (PerformMove(nextRow, nextColumn, i))
