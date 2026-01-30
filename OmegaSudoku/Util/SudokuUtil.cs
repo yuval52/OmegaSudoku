@@ -29,5 +29,11 @@
             int numMask = 1 << (num - 1);
             return mask | numMask;
         }
+
+        public static int RemoveNumberFromMask(int mask, int num)
+        {
+            int numMask = 1 << (num - 1);
+            return mask & ~numMask;
+        }
     }
 }

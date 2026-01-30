@@ -148,42 +148,39 @@ namespace OmegaSudoku.Board
 
         public bool RemoveFromRowMask(int i, int num)
         {
-            int numMask = 1 << num - 1;
-            if ((_rowMasks[i] & numMask) == 0)
+            if (!SudokuUtil.IsNumberInMask(_rowMasks[i], num))
             {
                 // Number isn't in the mask
                 return false;
             }
 
-            _rowMasks[i] &= ~numMask;
+            _rowMasks[i] = SudokuUtil.RemoveNumberFromMask(_rowMasks[i], num);
             // Successfuly removed number from mask
             return true;
         }
 
         public bool RemoveFromColumnMask(int i, int num)
         {
-            int numMask = 1 << num - 1;
-            if ((_columnMasks[i] & numMask) == 0)
+            if (!SudokuUtil.IsNumberInMask(_columnMasks[i], num))
             {
                 // Number isn't in the mask
                 return false;
             }
 
-            _columnMasks[i] &= ~numMask;
+            _columnMasks[i] = SudokuUtil.RemoveNumberFromMask(_columnMasks[i], num);
             // Successfuly removed number from mask
             return true;
         }
 
         public bool RemoveFromSquareMask(int i, int j, int num)
         {
-            int numMask = 1 << num - 1;
-            if ((_squareMasks[i, j] & numMask) == 0)
+            if (!SudokuUtil.IsNumberInMask(_squareMasks[i, j], num))
             {
                 // Number isn't in the mask
                 return false;
             }
 
-            _squareMasks[i, j] &= ~numMask;
+            _squareMasks[i, j] = SudokuUtil.RemoveNumberFromMask(_squareMasks[i, j], num);
             // Successfuly removed number from mask
             return true;
         }
