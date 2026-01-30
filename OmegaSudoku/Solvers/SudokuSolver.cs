@@ -4,8 +4,18 @@ using OmegaSudoku.Interface;
 
 namespace OmegaSudoku.Solvers
 {
+    /// <summary>
+    /// A static class that initiates the Sudoku solving process.
+    /// </summary>
     public static class SudokuSolver
     {
+        /// <summary>
+        /// The main function to solve a Sudoku puzzle given as a string.
+        /// </summary>
+        /// <param name="sudokuString">A string representing the Sudoku board to solve.</param>
+        /// <returns>A string representing the solved state of the board.</returns>
+        /// <exception cref="InvalidBoardException">An exception that is thrown when the initial board is invalid.</exception>
+        /// <exception cref="UnsolveableBoardException">An exception that is thrown when the board is unsolveable.</exception>
         public static string SolveSudoku(string sudokuString)
         {
             // Convert the input string to an array
@@ -59,9 +69,15 @@ namespace OmegaSudoku.Solvers
             return board.ToString();
         }
 
+        /// <summary>
+        /// Solves a Sudoku puzzle given as a string without any console output for testing.
+        /// </summary>
+        /// <param name="sudokuString">A string representing the Sudoku board to solve.</param>
+        /// <returns>A string representing the solved state of the board.</returns>
+        /// <exception cref="InvalidBoardException">An exception that is thrown when the initial board is invalid.</exception>
+        /// <exception cref="UnsolveableBoardException">An exception that is thrown when the board is unsolveable.</exception>
         public static string TestSolver(string sudokuString)
         {
-            // Sudoku solver without prints for testing
             // Convert the input string to an array
             int[] sudokuArr = InputValidation.ConvertInput(sudokuString);
 
