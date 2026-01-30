@@ -2,12 +2,20 @@
 
 namespace OmegaSudoku.Interface
 {
+    /// <summary>
+    /// A static class for validating and converting Sudoku input.
+    /// </summary>
     public static class InputValidation
     {
-
+        /// <summary>
+        /// Converts a string input representing a Sudoku board into an int array.
+        /// </summary>
+        /// <param name="input">The string representing a sudoku array.</param>
+        /// <returns>An array of integers representing the board.</returns>
+        /// <exception cref="InvalidSudokuLengthException">An exception that is thrown when the input string is an invalid length.</exception>
+        /// <exception cref="InvalidCharacterException">An exceptin that is thrown when the input string contains an invalid charachter.</exception>
         public static int[] ConvertInput(string input)
         {
-            // Convert the input from a string to an array
             int length = input.Length;
             if (length != 81)
             {
@@ -22,6 +30,7 @@ namespace OmegaSudoku.Interface
             {
                 if (char.IsDigit(input[i]))
                 {
+                    // Convert char digit to int
                     sudokuArray[i] = input[i] - '0';
                 }
                 else
