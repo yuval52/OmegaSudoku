@@ -2,7 +2,7 @@
 using OmegaSudoku.Solvers;
 using OmegaSudoku.Tests;
 
-namespace OmegaSudoku.UserInterface
+namespace OmegaSudoku.Interface
 {
     public static class UserInterface
     {

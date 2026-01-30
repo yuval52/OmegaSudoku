@@ -1,6 +1,6 @@
 ﻿using OmegaSudoku.Exceptions;
 
-namespace OmegaSudoku.UserInterface
+namespace OmegaSudoku.Interface
 {
     public static class InputValidation
     {

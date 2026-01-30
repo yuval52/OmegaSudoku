@@ -1,6 +1,6 @@
 ﻿using OmegaSudoku.Board;
 using OmegaSudoku.Exceptions;
-using OmegaSudoku.UserInterface;
+using OmegaSudoku.Interface;
 
 namespace OmegaSudoku.Solvers
 {
