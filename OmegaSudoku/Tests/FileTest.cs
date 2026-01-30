@@ -2,8 +2,15 @@
 
 namespace OmegaSudoku.Tests
 {
+    /// <summary>
+    /// A static class for testing the Sudoku solver with a large file of Sudokus.
+    /// </summary>
     public static class FileTest
     {
+        /// <summary>
+        /// Run a test loading and solving a large number of Sudokus from a CSV file.
+        /// </summary>
+        /// <param name="numberOfLines">The amount of lines to read from the file.</param>
         public static void TestLargeFile(int numberOfLines)
         {
             Console.WriteLine("----------------------------------------------------------------");
@@ -50,9 +57,9 @@ namespace OmegaSudoku.Tests
                     Console.Write("\r[" + loadingBarDots + loadingBarSpaces + "]");
                 }
 
-                //Console.WriteLine(isSolved);
             }
 
+            // Print full loading bar at the end
             string fullLoadingBar = new string('-', loadingBarSegments);
             Console.Write("\r[" + fullLoadingBar + "]\n\n");
 
@@ -72,11 +79,18 @@ namespace OmegaSudoku.Tests
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Reads a CSV file and returns the specified number of lines as a list of string arrays.
+        /// </summary>
+        /// <param name="filePath">The path of the CSV file to read.</param>
+        /// <param name="numberOfLines">The number of lines to read from the file.</param>
+        /// <returns>A list of string arrays representing Sudoku boards and their solutions.</returns>
         private static List<string[]> ReadCSVFile(string filePath, int numberOfLines)
         {
             List<string[]> rows = new List<string[]>();
 
-            string[] lines = File.ReadLines(filePath).Take(numberOfLines).ToArray();
+            // Read the specified number of lines from the CSV file
+            string[] lines = File.ReadLines(filePath).Take(numberOfLines + 1).ToArray();
 
             bool skippedFirstRow = false;
 
@@ -84,12 +98,13 @@ namespace OmegaSudoku.Tests
             {
                 if (skippedFirstRow)
                 {
+                    // Split the sudoku and solution by comma
                     string[] rowArr = line.Split(',');
                     rows.Add(rowArr);
-                    //Console.WriteLine(rowArr[0]);
                 }
                 else
                 {
+                    // Skip the first row (header)
                     skippedFirstRow = true;
                 }
             }
