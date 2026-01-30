@@ -3,22 +3,42 @@ using OmegaSudoku.Util;
 
 namespace OmegaSudoku.Solvers
 {
+    /// <summary>
+    /// The class dedicated to solving Sudoku boards using backtracking.
+    /// </summary>
     public class BacktrackingSolver
     {
+        // The Sudoku board to solve
         private SudokuBoard _board;
+        // Stack containing all moves made during solving to enable undoing moves
         private Stack<int[]> movesStack;
+
+        /// <summary>
+        /// Initializes a backtracking solver for the given Sudoku board.
+        /// </summary>
+        /// <param name="board">The board to solve.</param>
         public BacktrackingSolver(SudokuBoard board)
         {
             _board = board;
+            // Initialize an empty moves stack
             movesStack = new Stack<int[]>();
         }
 
+
+        /// <summary>
+        /// Wrapper function to start the backtracking solving process.
+        /// </summary>
+        /// <returns>Whether the solver managed to solve the board.</returns>
         public bool SolveBacktracking()
         {
             // Start the backtracking
             return Backtrack();
         }
 
+        /// <summary>
+        /// Recursive backtracking function to solve the board.
+        /// </summary>
+        /// <returns>Whether a solution to the board was found in this branch of backtracking.</returns>
         private bool Backtrack()
         {
             // Use non backtracking strategies first
@@ -35,10 +55,12 @@ namespace OmegaSudoku.Solvers
                 return true;
             }
 
+            // Get the bitmask of the cell
             int cellMask = _board.GetCellMask(nextRow, nextColumn);
 
             for (int i = 1; i <= _board.GetSize(); i++)
             {
+                // Try each number for the cell
                 if (!SudokuUtil.IsNumberInMask(cellMask, i))
                 {
                     // Number is available for cell
@@ -67,9 +89,13 @@ namespace OmegaSudoku.Solvers
             return false;
         }
 
+        /// <summary>
+        /// Find the next best cell to backtrack through.
+        /// </summary>
+        /// <returns>The coordinates (row and column) of the next best cell.</returns>
         private (int rowIndex, int columnIndex) FindNextCell()
         {
-
+            // Start by assuming no cell found
             int bestRow = -1;
             int bestColumn = -1;
             int minOptions = _board.GetSize() + 1;
@@ -82,6 +108,7 @@ namespace OmegaSudoku.Solvers
                     {
                         // Found empty cell
                         int cellMask = _board.GetCellMask(i, j);
+                        // Count how many options this cell has
                         int options = SudokuUtil.NumberOfOptions(cellMask, _board.GetSize());
                         if (options < minOptions)
                         {
@@ -98,31 +125,52 @@ namespace OmegaSudoku.Solvers
             return (bestRow, bestColumn);
         }
 
+        /// <summary>
+        /// Perform a move by placing a number on the board and adding it to the moves stack.
+        /// </summary>
+        /// <param name="row">The row of the cell.</param>
+        /// <param name="column">The column of the cell.</param>
+        /// <param name="num">The number to place.</param>
+        /// <returns>Whether the move is legal.</returns>
         private bool PerformMove(int row, int column, int num)
         {
             // Push the move's info to the stack
             int[] move = [row, column, num];
             movesStack.Push(move);
 
+            // Place the number on the board
             return _board.PlaceNumber(row, column, num);
         }
 
+        /// <summary>
+        /// Undo the most recent move from the moves stack.
+        /// </summary>
+        /// <returns>Whether the move was successfuly undone.</returns>
+        private bool UndoMove()
+        {
+            // Pop the most recent move from the stack
+            int[] move = movesStack.Pop();
+
+            // Undo the placement on the board
+            return _board.UndoPlacement(move[0], move[1], move[2]);
+        }
+
+        /// <summary>
+        /// Undo multiple moves from the moves stack.
+        /// </summary>
+        /// <param name="n">The number of moves to undo.</param>
+        /// <returns>Whether the moved were undone successfuly.</returns>
         private bool UndoMoves(int n)
         {
             for (int i = 0; i < n; i++)
             {
+                // Undo 1 move at a time
                 if (!UndoMove())
                 {
                     return false;
                 }
             }
             return true;
-        }
-        private bool UndoMove()
-        {
-            // Undo the last move on the stack
-            int[] move = movesStack.Pop();
-            return _board.UndoPlacement(move[0], move[1], move[2]);
         }
 
     }
