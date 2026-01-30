@@ -1,4 +1,4 @@
-﻿namespace OmegaSudoku
+﻿namespace OmegaSudoku.Util
 {
     public static class SudokuUtil
     {
@@ -10,7 +10,7 @@
             while (mask > 0)
             {
                 // Count how many bits are set to 1
-                mask &= (mask - 1);
+                mask &= mask - 1;
                 countSetBits++;
             }
 
@@ -20,7 +20,7 @@
 
         public static bool IsNumberInMask(int mask, int num)
         {
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             return (mask & numMask) != 0;
         }
     }

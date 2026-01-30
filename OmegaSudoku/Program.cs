@@ -1,4 +1,4 @@
-﻿using OmegaSudoku;
+﻿using OmegaSudoku.UserInterface;
 
 Console.WriteLine("Welcome to the Omega sudoku solver!\n");
 while (true)

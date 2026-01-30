@@ -1,6 +1,6 @@
 ﻿using OmegaSudoku.Exceptions;
 
-namespace OmegaSudoku
+namespace OmegaSudoku.UserInterface
 {
     public static class InputValidation
     {
@@ -20,7 +20,7 @@ namespace OmegaSudoku
             // Go over every character
             for (int i = 0; i < length; i++)
             {
-                if (Char.IsDigit(input[i]))
+                if (char.IsDigit(input[i]))
                 {
                     sudokuArray[i] = input[i] - '0';
                 }

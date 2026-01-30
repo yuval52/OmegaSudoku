@@ -1,4 +1,7 @@
-﻿namespace OmegaSudoku
+﻿using OmegaSudoku.Board;
+using OmegaSudoku.Util;
+
+namespace OmegaSudoku.Solvers
 {
     public class BacktrackingSolver
     {

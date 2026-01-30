@@ -1,6 +1,8 @@
-﻿using OmegaSudoku.Exceptions;
+﻿using OmegaSudoku.Board;
+using OmegaSudoku.Exceptions;
+using OmegaSudoku.UserInterface;
 
-namespace OmegaSudoku
+namespace OmegaSudoku.Solvers
 {
     public static class SudokuSolver
     {

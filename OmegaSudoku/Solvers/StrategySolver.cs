@@ -1,4 +1,7 @@
-﻿namespace OmegaSudoku
+﻿using OmegaSudoku.Board;
+using OmegaSudoku.Util;
+
+namespace OmegaSudoku.Solvers
 {
     public static class StrategySolver
     {
@@ -44,7 +47,7 @@
                             for (int k = 1; k < board.GetSize() + 1; k++)
                             {
                                 
-                                int numMask = 1 << (k - 1);
+                                int numMask = 1 << k - 1;
                                 if ((cellMask & numMask) == 0)
                                 {
                                     // Fill the only possible number

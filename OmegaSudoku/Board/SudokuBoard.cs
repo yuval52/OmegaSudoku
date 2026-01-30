@@ -1,4 +1,4 @@
-﻿namespace OmegaSudoku
+﻿namespace OmegaSudoku.Board
 {
     public class SudokuBoard
     {
@@ -50,7 +50,7 @@
                 for (int j = 0; j < _size; j++)
                 {
                     // Fill in board matrix
-                    _board[i, j] = newBoard[(i *  _size) + j];
+                    _board[i, j] = newBoard[i *  _size + j];
                     if (_board[i, j] != 0)
                     {
                         if(!AddToRowMask(i, _board[i, j]))
@@ -64,8 +64,8 @@
                             valid = false;
                         }
                         // Calculate square coordinates of cell
-                        int squareI = (int)(i / _sizeRoot);
-                        int squareJ = (int)(j / _sizeRoot);
+                        int squareI = i / _sizeRoot;
+                        int squareJ = j / _sizeRoot;
                         if (!AddToSquareMask(squareI, squareJ, _board[i, j]))
                         {
                             // Couldn't add number to mask, invalid board
@@ -99,8 +99,8 @@
         public int GetCellMask(int i, int j)
         {
             // Return a bitmask of possible numbers for one cell. 0 is possible, 1 is not possible
-            int squareI = (int)(i / _sizeRoot);
-            int squareJ = (int)(j / _sizeRoot);
+            int squareI = i / _sizeRoot;
+            int squareJ = j / _sizeRoot;
             int mask = _rowMasks[i] | _columnMasks[j] | _squareMasks[squareI, squareJ];
             return mask;
         }
@@ -108,7 +108,7 @@
         public bool AddToRowMask(int i, int num)
         {
             // Create a bitmask with a 1 in the num spot
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             if ((_rowMasks[i] & numMask) != 0)
             {
                 // Number is already in the mask
@@ -123,7 +123,7 @@
         public bool AddToColumnMask(int i, int num)
         {
             // Create a bitmask with a 1 in the num spot
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             if ((_columnMasks[i] & numMask) != 0)
             {
                 // Number is already in the mask
@@ -138,7 +138,7 @@
         public bool AddToSquareMask(int i, int j, int num)
         {
             // Create a bitmask with a 1 in the num spot
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             if ((_squareMasks[i, j] & numMask) != 0)
             {
                 // Number is already in the mask
@@ -152,42 +152,42 @@
 
         public bool RemoveFromRowMask(int i, int num)
         {
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             if ((_rowMasks[i] & numMask) == 0)
             {
                 // Number isn't in the mask
                 return false;
             }
 
-            _rowMasks[i] &= (~numMask);
+            _rowMasks[i] &= ~numMask;
             // Successfuly removed number from mask
             return true;
         }
 
         public bool RemoveFromColumnMask(int i, int num)
         {
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             if ((_columnMasks[i] & numMask) == 0)
             {
                 // Number isn't in the mask
                 return false;
             }
 
-            _columnMasks[i] &= (~numMask);
+            _columnMasks[i] &= ~numMask;
             // Successfuly removed number from mask
             return true;
         }
 
         public bool RemoveFromSquareMask(int i, int j, int num)
         {
-            int numMask = 1 << (num - 1);
+            int numMask = 1 << num - 1;
             if ((_squareMasks[i, j] & numMask) == 0)
             {
                 // Number isn't in the mask
                 return false;
             }
 
-            _squareMasks[i, j] &= (~numMask);
+            _squareMasks[i, j] &= ~numMask;
             // Successfuly removed number from mask
             return true;
         }
@@ -204,8 +204,8 @@
                 // Already in column
                 return false;
             }
-            int squareI = (int)(i / _sizeRoot);
-            int squareJ = (int)(j / _sizeRoot);
+            int squareI = i / _sizeRoot;
+            int squareJ = j / _sizeRoot;
             if (!AddToSquareMask(squareI, squareJ, num))
             {
                 return false;
@@ -226,8 +226,8 @@
             {
                 return false;
             }
-            int squareI = (int)(i / _sizeRoot);
-            int squareJ = (int)(j / _sizeRoot);
+            int squareI = i / _sizeRoot;
+            int squareJ = j / _sizeRoot;
             if (!RemoveFromSquareMask(squareI, squareJ, num))
             {
                 return false;
@@ -240,7 +240,7 @@
 
         public void PrintBoard()
         {
-            int totalWidth = (_size * 4) + 1;
+            int totalWidth = _size * 4 + 1;
             string horizontalDivider = new string('-', totalWidth);
 
             Console.WriteLine(horizontalDivider);
@@ -252,7 +252,7 @@
                 for (int j = 0; j < _size; j++)
                 {
                     int value = _board[i, j];
-                    string toPrint = (value == 0) ? " " : value.ToString();
+                    string toPrint = value == 0 ? " " : value.ToString();
 
                     Console.Write($" {toPrint} ");
 

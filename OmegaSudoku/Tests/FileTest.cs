@@ -1,4 +1,6 @@
-﻿namespace OmegaSudoku.Tests
+﻿using OmegaSudoku.Solvers;
+
+namespace OmegaSudoku.Tests
 {
     public static class FileTest
     {

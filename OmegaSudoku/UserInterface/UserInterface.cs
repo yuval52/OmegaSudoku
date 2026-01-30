@@ -1,7 +1,8 @@
 ﻿using OmegaSudoku.Exceptions;
+using OmegaSudoku.Solvers;
 using OmegaSudoku.Tests;
 
-namespace OmegaSudoku
+namespace OmegaSudoku.UserInterface
 {
     public static class UserInterface
     {
