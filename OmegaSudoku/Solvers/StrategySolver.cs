@@ -3,9 +3,18 @@ using OmegaSudoku.Util;
 
 namespace OmegaSudoku.Solvers
 {
+    /// <summary>
+    /// A class dedicated to applying non backtracking strategies to solve boards.
+    /// </summary>
     public static class StrategySolver
     {
 
+        /// <summary>
+        /// Apply all non backtracking strategies to the board.
+        /// </summary>
+        /// <param name="board">The board to apply strategies to.</param>
+        /// <param name="movesStack">The move stack to add moves to.</param>
+        /// <returns>The amount of changes made to the board by all strategies.</returns>
         public static int ApplyStrategies(SudokuBoard board, Stack<int[]> movesStack)
         {
             int changes = 0;
@@ -20,16 +29,21 @@ namespace OmegaSudoku.Solvers
             changes += HiddenSingelsColumn(board, movesStack);
 
             // Find squares where only one cell has a number available and fill it
-            // Of note, seems to slow down the solving overall for some boards and only mildly speed up for others, re-enabled due to testing
+            // Of note, seems to slow down the solving for some boards and speed up for others, currently re-enabled due to testing
             changes += HiddenSinglesSquare(board, movesStack);
 
             // Return the number of changes this function made to the board
             return changes;
         }
 
+        /// <summary>
+        /// Apply the 'naked singles' strategy to the board, filling cells that only have one possible number.
+        /// </summary>
+        /// <param name="board">The board to apply the strategy to.</param>
+        /// <param name="movesStack">The move stack to add moves to.</param>
+        /// <returns>The amount of changes made to the board by this funvtion.</returns>
         public static int FillSingleOption(SudokuBoard board, Stack<int[]> movesStack)
         {
-            // Fill cells that only have one option
             int changes = 0;
             for (int i = 0; i < board.GetSize(); i++)
             {
@@ -66,9 +80,14 @@ namespace OmegaSudoku.Solvers
             return changes;
         }
 
+        /// <summary>
+        /// Apply the 'hidden singles' strategy to the board for rows, filling the only cells that can have a certain number in the row.
+        /// </summary>
+        /// <param name="board">The board to apply the strategy to.</param>
+        /// <param name="movesStack">The move stack to add moves to.</param>
+        /// <returns>The amount of changes made to the board by this funvtion.</returns>
         public static int HiddenSingelsRow(SudokuBoard board, Stack<int[]> movesStack)
         {
-            // Find rows where only one cell has a number available and fill it
             int changes = 0;
 
             // Check each row
@@ -122,9 +141,14 @@ namespace OmegaSudoku.Solvers
             return changes;
         }
 
+        /// <summary>
+        /// Apply the 'hidden singles' strategy to the board for columns, filling the only cells that can have a certain number in the column.
+        /// </summary>
+        /// <param name="board">The board to apply the strategy to.</param>
+        /// <param name="movesStack">The move stack to add moves to.</param>
+        /// <returns>The amount of changes made to the board by this funvtion.</returns>
         public static int HiddenSingelsColumn(SudokuBoard board, Stack<int[]> movesStack)
         {
-            // Find cokumns where only one cell has a number available and fill it
             int changes = 0;
 
             // Check each column
@@ -179,9 +203,14 @@ namespace OmegaSudoku.Solvers
             return changes;
         }
 
+        /// <summary>
+        /// Apply the 'hidden singles' strategy to the board for squares, filling the only cells that can have a certain number in the squares.
+        /// </summary>
+        /// <param name="board">The board to apply the strategy to.</param>
+        /// <param name="movesStack">The move stack to add moves to.</param>
+        /// <returns>The amount of changes made to the board by this funvtion.</returns>
         public static int HiddenSinglesSquare(SudokuBoard board, Stack<int[]> movesStack)
         {
-            // Find squares where only one cell has a number available and fill it
             int changes = 0;
 
             // Check each square
