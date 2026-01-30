@@ -72,7 +72,7 @@ namespace OmegaSudoku.Solvers
 
             int bestRow = -1;
             int bestColumn = -1;
-            int minOptions = _board.GetSize();
+            int minOptions = _board.GetSize() + 1;
 
             for (int i = 0; i < _board.GetSize(); i++)
             {
