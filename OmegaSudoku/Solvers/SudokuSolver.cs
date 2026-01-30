@@ -15,7 +15,7 @@ namespace OmegaSudoku.Solvers
         /// <param name="sudokuString">A string representing the Sudoku board to solve.</param>
         /// <returns>A string representing the solved state of the board.</returns>
         /// <exception cref="InvalidBoardException">An exception that is thrown when the initial board is invalid.</exception>
-        /// <exception cref="UnsolveableBoardException">An exception that is thrown when the board is unsolveable.</exception>
+        /// <exception cref="UnsolveableBoardException">An exception that is thrown when the board is unsolvable.</exception>
         public static string SolveSudoku(string sudokuString)
         {
             // Convert the input string to an array
