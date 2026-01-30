@@ -20,8 +20,14 @@
 
         public static bool IsNumberInMask(int mask, int num)
         {
-            int numMask = 1 << num - 1;
+            int numMask = 1 << (num - 1);
             return (mask & numMask) != 0;
+        }
+
+        public static int AddNumberToMask(int mask, int num)
+        {
+            int numMask = 1 << (num - 1);
+            return mask | numMask;
         }
     }
 }

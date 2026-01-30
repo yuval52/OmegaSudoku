@@ -46,9 +46,8 @@ namespace OmegaSudoku.Solvers
                             // A cell with a single possible number
                             for (int k = 1; k < board.GetSize() + 1; k++)
                             {
-                                
-                                int numMask = 1 << k - 1;
-                                if ((cellMask & numMask) == 0)
+                               
+                                if (!SudokuUtil.IsNumberInMask(cellMask, k))
                                 {
                                     // Fill the only possible number
                                     board.PlaceNumber(i, j, k);

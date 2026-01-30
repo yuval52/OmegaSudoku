@@ -1,4 +1,6 @@
-﻿namespace OmegaSudoku.Board
+﻿using OmegaSudoku.Util;
+
+namespace OmegaSudoku.Board
 {
     public class SudokuBoard
     {
@@ -44,7 +46,7 @@
 
         public bool LoadBoard(int[] newBoard)
         {
-            // For now assume array length was already checked to be correct
+            // Assume array length was already checked to be correct
             bool valid = true;
             for (int i = 0; i < _size; i++) {
                 for (int j = 0; j < _size; j++)
@@ -107,45 +109,39 @@
 
         public bool AddToRowMask(int i, int num)
         {
-            // Create a bitmask with a 1 in the num spot
-            int numMask = 1 << num - 1;
-            if ((_rowMasks[i] & numMask) != 0)
+            if (SudokuUtil.IsNumberInMask(_rowMasks[i], num))
             {
                 // Number is already in the mask
                 return false;
             }
 
-            _rowMasks[i] |= numMask;
+            _rowMasks[i] = SudokuUtil.AddNumberToMask(_rowMasks[i], num);
             // Successfuly added number to mask
             return true;
         }
 
         public bool AddToColumnMask(int i, int num)
         {
-            // Create a bitmask with a 1 in the num spot
-            int numMask = 1 << num - 1;
-            if ((_columnMasks[i] & numMask) != 0)
+            if (SudokuUtil.IsNumberInMask(_columnMasks[i], num))
             {
                 // Number is already in the mask
                 return false;
             }
 
-            _columnMasks[i] |= numMask;
+            _columnMasks[i] = SudokuUtil.AddNumberToMask(_columnMasks[i], num);
             // Successfuly added number to mask
             return true;
         }
 
         public bool AddToSquareMask(int i, int j, int num)
         {
-            // Create a bitmask with a 1 in the num spot
-            int numMask = 1 << num - 1;
-            if ((_squareMasks[i, j] & numMask) != 0)
+            if (SudokuUtil.IsNumberInMask(_squareMasks[i, j], num))
             {
                 // Number is already in the mask
                 return false;
             }
 
-            _squareMasks[i, j] |= numMask;
+            _squareMasks[i, j] = SudokuUtil.AddNumberToMask(_squareMasks[i, j], num);
             // Successfuly added number to mask
             return true;
         }
