@@ -103,7 +103,7 @@ namespace OmegaSudoku.Board
                     }
                 }
             }
-            // All values were entered successfuly
+            // All values were entered, return validity
             return valid;
         }
 
@@ -215,18 +215,9 @@ namespace OmegaSudoku.Board
         /// </summary>
         /// <param name="i">The index of the row.</param>
         /// <param name="num">The number to remove.</param>
-        /// <returns>Whether the number was successfuly removed. If false, the number was not already in the row.</returns>
-        public bool RemoveFromRowMask(int i, int num)
+        public void RemoveFromRowMask(int i, int num)
         {
-            if (!SudokuUtil.IsNumberInMask(_rowMasks[i], num))
-            {
-                // Number isn't in the mask
-                return false;
-            }
-
             _rowMasks[i] = SudokuUtil.RemoveNumberFromMask(_rowMasks[i], num);
-            // Successfuly removed number from mask
-            return true;
         }
 
         /// <summary>
@@ -234,18 +225,9 @@ namespace OmegaSudoku.Board
         /// </summary>
         /// <param name="i">The index of the column.</param>
         /// <param name="num">The number to remove.</param>
-        /// <returns>Whether the number was succesfuly removed. If false, the number was not already in the column.</returns>
-        public bool RemoveFromColumnMask(int i, int num)
+        public void RemoveFromColumnMask(int i, int num)
         {
-            if (!SudokuUtil.IsNumberInMask(_columnMasks[i], num))
-            {
-                // Number isn't in the mask
-                return false;
-            }
-
             _columnMasks[i] = SudokuUtil.RemoveNumberFromMask(_columnMasks[i], num);
-            // Successfuly removed number from mask
-            return true;
         }
 
         /// <summary>
@@ -254,18 +236,9 @@ namespace OmegaSudoku.Board
         /// <param name="i">The row index of the square.</param>
         /// <param name="j">The column index of the square.</param>
         /// <param name="num">The number to remove.</param>
-        /// <returns>Whether the number was successfuly removed. If false, the number was not already in the square.</returns>
-        public bool RemoveFromSquareMask(int i, int j, int num)
+        public void RemoveFromSquareMask(int i, int j, int num)
         {
-            if (!SudokuUtil.IsNumberInMask(_squareMasks[i, j], num))
-            {
-                // Number isn't in the mask
-                return false;
-            }
-
             _squareMasks[i, j] = SudokuUtil.RemoveNumberFromMask(_squareMasks[i, j], num);
-            // Successfuly removed number from mask
-            return true;
         }
 
         /// <summary>
@@ -274,29 +247,17 @@ namespace OmegaSudoku.Board
         /// <param name="i">The row of the cell.</param>
         /// <param name="j">The column of the cell.</param>
         /// <param name="num">The number to place.</param>
-        /// <returns>Whether the number was placed succesfuly. If false, the number placement is not a valid move.</returns>
-        public bool PlaceNumber(int i, int j, int num)
+        public void PlaceNumber(int i, int j, int num)
         {
-            if (!AddToRowMask(i, num))
-            {
-                // Already in row
-                return false;
-            }
-            if (!AddToColumnMask(j, num))
-            {
-                // Already in column
-                return false;
-            }
+            // Update masks with added number
+            AddToRowMask(i, num);
+            AddToColumnMask(j, num);
             int squareI = i / _sizeRoot;
             int squareJ = j / _sizeRoot;
-            if (!AddToSquareMask(squareI, squareJ, num))
-            {
-                return false;
-            }
+            AddToSquareMask(squareI, squareJ, num);
 
             // Successfuly added number to board
             _board[i, j] = num;
-            return true;
         }
 
         /// <summary>
@@ -305,27 +266,17 @@ namespace OmegaSudoku.Board
         /// <param name="i">The row of the cell.</param>
         /// <param name="j">The column of the cell.</param>
         /// <param name="num">The number to place.</param>
-        /// <returns>Whether the number was placed successfuly.</returns>
-        public bool UndoPlacement(int i, int j, int num)
+        public void UndoPlacement(int i, int j, int num)
         {
-            if (!RemoveFromRowMask(i, num))
-            {
-                return false;
-            }
-            if (!RemoveFromColumnMask(j, num))
-            {
-                return false;
-            }
+            // Update masks with removed number
+            RemoveFromRowMask(i, num);
+            RemoveFromColumnMask(j, num);
             int squareI = i / _sizeRoot;
             int squareJ = j / _sizeRoot;
-            if (!RemoveFromSquareMask(squareI, squareJ, num))
-            {
-                return false;
-            }
+            RemoveFromSquareMask(squareI, squareJ, num);
 
             // Successfuly removed number from board
             _board[i, j] = 0;
-            return true;
         }
 
         /// <summary>

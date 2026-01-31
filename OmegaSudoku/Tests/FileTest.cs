@@ -29,8 +29,9 @@ namespace OmegaSudoku.Tests
 
             // Decide how many segments should the loading bar have
             int loadingBarSegments = 20;
-            // Split sample into 10 parts
+            // Split sample into parts
             int tenthSize = numberOfLines / loadingBarSegments;
+            if (tenthSize == 0) tenthSize++;
 
             //Print start of loading bar
             string emptyLoadingBar = new string(' ', loadingBarSegments);
