@@ -42,7 +42,15 @@ namespace OmegaSudoku.Solvers
         private bool Backtrack()
         {
             // Use non backtracking strategies first
+            int prevChanges = 0;
             int changes = StrategySolver.ApplyStrategies(_board, movesStack);
+
+            while(changes != prevChanges)
+            {
+                // Continue applying strategies until no more changes are made
+                prevChanges = changes;
+                changes += StrategySolver.ApplyStrategies(_board, movesStack);
+            }
 
             // The next cell to backtrack through
             int nextRow;
