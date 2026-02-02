@@ -15,7 +15,7 @@ namespace OmegaSudoku.Solvers
         /// <param name="sudokuString">A string representing the Sudoku board to solve.</param>
         /// <returns>A string representing the solved state of the board.</returns>
         /// <exception cref="InvalidBoardException">An exception that is thrown when the initial board is invalid.</exception>
-        /// <exception cref="UnsolveableBoardException">An exception that is thrown when the board is unsolvable.</exception>
+        /// <exception cref="UnsolvableBoardException">An exception that is thrown when the board is unsolvable.</exception>
         public static string SolveSudoku(string sudokuString)
         {
             // Convert the input string to an array
@@ -52,8 +52,8 @@ namespace OmegaSudoku.Solvers
 
             if (!solved)
             {
-                // Board is unsolveable
-                throw new UnsolveableBoardException();
+                // Board is unsolvable
+                throw new UnsolvableBoardException();
             }
 
             // Print the solved board
@@ -75,7 +75,7 @@ namespace OmegaSudoku.Solvers
         /// <param name="sudokuString">A string representing the Sudoku board to solve.</param>
         /// <returns>A string representing the solved state of the board.</returns>
         /// <exception cref="InvalidBoardException">An exception that is thrown when the initial board is invalid.</exception>
-        /// <exception cref="UnsolveableBoardException">An exception that is thrown when the board is unsolveable.</exception>
+        /// <exception cref="UnsolvableBoardException">An exception that is thrown when the board is unsolveable.</exception>
         public static string TestSolver(string sudokuString)
         {
             // Convert the input string to an array
@@ -100,7 +100,7 @@ namespace OmegaSudoku.Solvers
             if (!solved)
             {
                 // Board is unsolveable
-                throw new UnsolveableBoardException();
+                throw new UnsolvableBoardException();
             }
 
             // Return solved board in the same format as the input board

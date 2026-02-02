@@ -3,12 +3,12 @@
     /// <summary>
     /// An exception that is thrown when the board is unsolvable.
     /// </summary>
-    public class UnsolveableBoardException : Exception
+    public class UnsolvableBoardException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnsolveableBoardException"/> class.
+        /// Initializes a new instance of the <see cref="UnsolvableBoardException"/> class.
         /// </summary>
-        public UnsolveableBoardException() : base(ExceptionMessage())
+        public UnsolvableBoardException() : base(ExceptionMessage())
         {
 
         }
