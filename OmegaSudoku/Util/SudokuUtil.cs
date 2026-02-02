@@ -1,4 +1,5 @@
-﻿namespace OmegaSudoku.Util
+﻿using System.Numerics;
+namespace OmegaSudoku.Util
 {
     /// <summary>
     /// A static utility class for common Sudoku functions.
@@ -14,14 +15,7 @@
         /// <returns>The amount of 0 bits in the bitmask.</returns>
         public static int NumberOfOptions(int mask, int size)
         {
-            int countSetBits = 0;
-
-            while (mask > 0)
-            {
-                // Count how many bits are set to 1
-                mask &= mask - 1;
-                countSetBits++;
-            }
+            int countSetBits = BitOperations.PopCount((uint)mask);
 
             // The number of options is the bits that arent 1
             return size - countSetBits;
