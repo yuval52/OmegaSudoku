@@ -88,7 +88,7 @@ namespace OmegaSudoku.Interface
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("This test will run a large amount of easy Sudokus from a dataset");
             Console.WriteLine("The original dataset contains 9 million Sudokus and their solutions");
-            Console.WriteLine("For this application I used a subset of the dataset that only contains 10,000 Sudokus, since the");
+            Console.WriteLine("For this application I used a subset of the dataset that only contains 100,000 Sudokus, since the");
             Console.WriteLine("full dataset is too large to be uploaded to GitHub");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("Enter how many Sudokus to run from the file:");
@@ -102,7 +102,7 @@ namespace OmegaSudoku.Interface
                 throw new InputIsNotANumberException(input);
             }
 
-            if (number < 1 || number > 10000)
+            if (number < 1 || number > 100000)
             {
                 throw new InputOutOfRangeException(number);
             }
