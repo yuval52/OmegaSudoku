@@ -1,5 +1,4 @@
-﻿using OmegaSudoku;
-using OmegaSudoku.Solvers;
+﻿using OmegaSudoku.Solvers;
 namespace OmegaSudokuTest
 {
     /// <summary>
