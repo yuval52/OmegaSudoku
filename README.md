@@ -74,7 +74,7 @@ This application uses 2 solving strategies, both trying to find "singles", cells
 
 - Hidden singles: Hidden singles are cases where within a certain unit of the board (row, column or square), only one cell has a certain number as a possibility. In these situations the program will fill in the number for the one cell that can have it.
 
-These strategies are applied to the board every time the backtracking function is called, since the cells filled in by the backtracking can crete more singles to be detected. These strategies can also create more instances of these patterns, so the strategies are applied repeatedly to the board until they no longer find cells to fill.
+These strategies are applied to the board every time the backtracking function is called, since the cells filled in by the backtracking can create more singles to be detected. These strategies can also create more instances of these patterns, so the strategies are applied repeatedly to the board until they no longer find cells to fill.
 
 Since the cells filled by backtracking affect these strategies, when a backtracking decision is determined to be wrong and is undone, the decisions following it made by the strategies have to be undone as well. For that reason every cell filled in by the solving strategies is pushed into a stack, and increases a counter of the changes done this iteration of backtracking.
 
