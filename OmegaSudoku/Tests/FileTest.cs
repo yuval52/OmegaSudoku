@@ -19,7 +19,7 @@ namespace OmegaSudoku.Tests
             // Currently using smaller 10,000 sudokus file "sudokuSet.csv"
             // Full 9,000,000 sudokus file is too large for github, so it was added to the gitignore
             // Full file is called "sudoku.csv"
-            List<string[]> rows = ReadCSVFile("Tests/sudoku.csv", numberOfLines);
+            List<string[]> rows = ReadCSVFile("Tests/sudokuSet.csv", numberOfLines);
 
             bool allTrue = true;
 

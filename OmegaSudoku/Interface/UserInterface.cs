@@ -104,11 +104,10 @@ namespace OmegaSudoku.Interface
 
             if (number < 1 || number > 10000)
             {
-                //throw new InputOutOfRangeException(number);
+                throw new InputOutOfRangeException(number);
             }
 
             FileTest.TestEasyFile(number);
-            //FileTest.TestDifficultFile(number);
 
             Console.WriteLine("Press enter to return to the main menu");
             Console.ReadLine();
