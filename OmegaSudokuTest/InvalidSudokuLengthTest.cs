@@ -3,7 +3,7 @@ using OmegaSudoku.Solvers;
 namespace OmegaSudokuTest
 {
     /// <summary>
-    /// A test class for testing invalid Sudokus.
+    /// A test class for testing invalid Sudoku lengths.
     /// </summary>
     [TestClass]
     public sealed class InvalidSudokuLengthTest
