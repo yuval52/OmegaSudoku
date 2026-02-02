@@ -29,8 +29,8 @@ namespace OmegaSudoku.Solvers
             changes += HiddenSingelsColumn(board, movesStack);
 
             // Find squares where only one cell has a number available and fill it
-            // Of note, seems to slow down the solving for some boards and speed up for others, currently disabled due to testing
-            //changes += HiddenSinglesSquare(board, movesStack);
+            // Of note, seems to slow down the solving for easier boards and speed up for difficult ones, currently re-enabled due to testing
+            changes += HiddenSinglesSquare(board, movesStack);
 
             // Return the number of changes this function made to the board
             return changes;

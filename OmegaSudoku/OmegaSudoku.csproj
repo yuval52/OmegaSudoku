@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Tests\17_clue.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Tests\sudoku.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

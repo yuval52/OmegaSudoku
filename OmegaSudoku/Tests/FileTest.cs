@@ -8,23 +8,23 @@ namespace OmegaSudoku.Tests
     public static class FileTest
     {
         /// <summary>
-        /// Run a test loading and solving a large number of Sudokus from a CSV file.
+        /// Run a test loading and solving a large number of easy Sudokus from a CSV file.
         /// </summary>
         /// <param name="numberOfLines">The amount of lines to read from the file.</param>
-        public static void TestLargeFile(int numberOfLines)
+        public static void TestEasyFile(int numberOfLines)
         {
             Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine($"Loading {numberOfLines} sudokus from file");
+            Console.WriteLine($"Loading {numberOfLines} Sudokus from file");
             Console.WriteLine("----------------------------------------------------------------\n");
             // Currently using smaller 10,000 sudokus file "sudokuSet.csv"
             // Full 9,000,000 sudokus file is too large for github, so it was added to the gitignore
             // Full file is called "sudoku.csv"
-            List<string[]> rows = ReadCSVFile("Tests/sudokuSet.csv", numberOfLines);
+            List<string[]> rows = ReadCSVFile("Tests/sudoku.csv", numberOfLines);
 
             bool allTrue = true;
 
 
-            Console.WriteLine($"Solving {numberOfLines} sudokus from file:");
+            Console.WriteLine($"Solving {numberOfLines} Sudokus from file:");
             Console.WriteLine("\nSolving...\n");
 
             // Decide how many segments should the loading bar have
@@ -81,6 +81,65 @@ namespace OmegaSudoku.Tests
         }
 
         /// <summary>
+        /// Run a test loading and solving a large number of difficult Sudokus from a txt file.
+        /// </summary>
+        /// <param name="numberOfLines">The amount of lines to read from the file.</param>
+        public static void TestDifficultFile(int numberOfLines)
+        {
+            Console.WriteLine("----------------------------------------------------------------");
+            Console.WriteLine($"Loading {numberOfLines} Sudokus from file");
+            Console.WriteLine("----------------------------------------------------------------\n");
+            // Read sudokus from a txt file
+            string[] rows = ReadTXTFile("Tests/17_clue.txt", numberOfLines);
+
+            Console.WriteLine($"Solving {numberOfLines} Sudokus from file:");
+            Console.WriteLine("\nSolving...\n");
+
+            // Decide how many segments should the loading bar have
+            int loadingBarSegments = 20;
+            // Split sample into parts
+            int tenthSize = numberOfLines / loadingBarSegments;
+            if (tenthSize == 0) tenthSize++;
+
+            //Print start of loading bar
+            string emptyLoadingBar = new string(' ', loadingBarSegments);
+            Console.Write("[" + emptyLoadingBar + "]");
+
+            // Messure the time before solving
+            DateTime before = DateTime.Now;
+
+            for (int i = 0; i < rows.Length; i++)
+            {
+                //Console.WriteLine(rows[i][0]);
+                string solved = SudokuSolver.TestSolver(rows[i]);
+
+                if (i % tenthSize == 0)
+                {
+                    // Print loading bar progression
+                    string loadingBarDots = new string('-', i / tenthSize);
+                    string loadingBarSpaces = new string(' ', loadingBarSegments - (i / tenthSize));
+                    Console.Write("\r[" + loadingBarDots + loadingBarSpaces + "]");
+                }
+
+            }
+
+            // Print full loading bar at the end
+            string fullLoadingBar = new string('-', loadingBarSegments);
+            Console.Write("\r[" + fullLoadingBar + "]\n\n");
+
+            // Messure the time after solving
+            DateTime after = DateTime.Now;
+
+            // Calculate solving time
+            TimeSpan time = after - before;
+
+            // Print the solve time
+            Console.WriteLine("\nSolve time:");
+            Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
+            Console.WriteLine();
+        }
+
+        /// <summary>
         /// Reads a CSV file and returns the specified number of lines as a list of string arrays.
         /// </summary>
         /// <param name="filePath">The path of the CSV file to read.</param>
@@ -111,6 +170,21 @@ namespace OmegaSudoku.Tests
             }
 
             return rows;
+        }
+
+        /// <summary>
+        /// Reads a txt file and returns the specified number of lines as a list of string arrays.
+        /// </summary>
+        /// <param name="filePath">The path of the txt file to read.</param>
+        /// <param name="numberOfLines">The number of lines to read from the file.</param>
+        /// <returns>An array of string representing Sudoku boards.</returns>
+        private static string[] ReadTXTFile(string filePath, int numberOfLines)
+        {
+
+            // Read the specified number of lines from the txt file
+            string[] lines = File.ReadLines(filePath).Take(numberOfLines).ToArray();
+
+            return lines;
         }
     }
 }
