@@ -11,7 +11,7 @@ namespace OmegaSudoku.Tests
         /// Run a test loading and solving a large number of easy Sudokus from a CSV file.
         /// </summary>
         /// <param name="numberOfLines">The amount of lines to read from the file.</param>
-        public static void TestEasyFile(int numberOfLines)
+        public static TimeSpan TestEasyFile(int numberOfLines)
         {
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine($"Loading {numberOfLines} Sudokus from file");
@@ -78,13 +78,16 @@ namespace OmegaSudoku.Tests
             Console.WriteLine("\nSolve time:");
             Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
             Console.WriteLine();
+
+            // Return the solve time
+            return time;
         }
 
         /// <summary>
         /// Run a test loading and solving a large number of difficult Sudokus from a txt file.
         /// </summary>
         /// <param name="numberOfLines">The amount of lines to read from the file.</param>
-        public static void TestDifficultFile(int numberOfLines)
+        public static TimeSpan TestDifficultFile(int numberOfLines)
         {
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine($"Loading {numberOfLines} Sudokus from file");
@@ -137,6 +140,9 @@ namespace OmegaSudoku.Tests
             Console.WriteLine("\nSolve time:");
             Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
             Console.WriteLine();
+
+            // Retunr the solve time
+            return time;
         }
 
         /// <summary>
