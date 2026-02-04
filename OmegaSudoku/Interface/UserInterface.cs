@@ -124,7 +124,7 @@ namespace OmegaSudoku.Interface
             Console.Clear();
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("This test will run a large amount of difficult Sudokus from a dataset");
-            Console.WriteLine("This dataset contains 49151 Sudokus with only 17 cells filled");
+            Console.WriteLine("This dataset contains 49,151 Sudokus with only 17 cells filled");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("Enter how many Sudokus to run from the file:");
             string input = Console.ReadLine();

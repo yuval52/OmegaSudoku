@@ -75,10 +75,16 @@ namespace OmegaSudoku.Tests
             Console.WriteLine("All boards solved correctly:\n");
             Console.WriteLine(allTrue);
 
+            // Calculate per board time
+            TimeSpan perBoard = time.Divide(numberOfLines);
+
             // Print the solve time
-            Console.WriteLine("\nSolve time:");
-            Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
-            Console.WriteLine();
+            Console.WriteLine("\nSolve time   |   Per Sudoku");
+            Console.WriteLine("----------       ----------");
+            Console.Write(time.ToString(@"mm\:ss\.ffff"));
+            Console.Write("   |   ");
+            Console.Write(perBoard.ToString(@"mm\:ss\.ffff"));
+            Console.WriteLine("\n");
 
             // Return the solve time
             return time;
@@ -138,10 +144,16 @@ namespace OmegaSudoku.Tests
             // Calculate solving time
             TimeSpan time = after - before;
 
+            // Calculate per board time
+            TimeSpan perBoard = time.Divide(numberOfLines);
+
             // Print the solve time
-            Console.WriteLine("\nSolve time:");
-            Console.WriteLine(time.ToString(@"mm\:ss\.ffff"));
-            Console.WriteLine();
+            Console.WriteLine("\nSolve time   |   Per Sudoku");
+            Console.WriteLine("----------       ----------");
+            Console.Write(time.ToString(@"mm\:ss\.ffff"));
+            Console.Write("   |   ");
+            Console.Write(perBoard.ToString(@"mm\:ss\.ffff"));
+            Console.WriteLine("\n");
 
             // Retunr the solve time
             return time;
