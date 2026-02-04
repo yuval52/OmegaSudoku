@@ -101,10 +101,14 @@ namespace OmegaSudoku.Solvers
         /// <returns>The coordinates (row and column) of the next best cell.</returns>
         private (int rowIndex, int columnIndex) FindNextCell()
         {
+            // Define score weights
+            int optionsWeight = 10;
+            int effectWeight = 1;
+
             // Start by assuming no cell found
             int bestRow = -1;
             int bestColumn = -1;
-            int minOptions = _board.GetSize() + 1;
+            int bestScore = -1;
 
             for (int i = 0; i < _board.GetSize(); i++)
             {
@@ -116,10 +120,20 @@ namespace OmegaSudoku.Solvers
                         int cellMask = _board.GetCellMask(i, j);
                         // Count how many options this cell has
                         int options = SudokuUtil.NumberOfOptions(cellMask, _board.GetSize());
-                        if (options < minOptions)
+                        int optionsScore = _board.GetSize() - options;
+
+                        int squareI = i / _board.GetSizeRoot();
+                        int squareJ = j / _board.GetSizeRoot();
+                        // Count roughly how many empty cells changing this cell will affect
+                        int effectScore = SudokuUtil.NumberOfOptions(_board.GetRowMask(i), _board.GetSize()) + SudokuUtil.NumberOfOptions(_board.GetColumnMask(j), _board.GetSize() + SudokuUtil.NumberOfOptions(_board.GetSquareMask(squareI, squareJ), _board.GetSize()));
+
+                        //Calculate total score
+                        int totalScore = optionsScore * optionsWeight + effectScore * effectWeight;
+
+                        if (totalScore > bestScore)
                         {
-                            // Cell has the least possible numbers so far
-                            minOptions = options;
+                            // Cell has the best score so far
+                            bestScore = totalScore;
                             bestRow = i;
                             bestColumn = j;
                         }
