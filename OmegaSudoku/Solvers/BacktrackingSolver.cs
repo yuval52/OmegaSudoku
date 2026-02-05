@@ -102,13 +102,15 @@ namespace OmegaSudoku.Solvers
         private (int rowIndex, int columnIndex) FindNextCell()
         {
             // Define score weights
-            int optionsWeight = 10;
-            int effectWeight = 1;
+            double optionsWeight = 1;
+            // Counter intuitively, I would want to actually prioritize cells that affect less other cells, since they are more likely to create singles, which can be found without backtracking
+            // Negative weight to prioritize cells with less effect
+            double effectWeight = -0.25;
 
             // Start by assuming no cell found
             int bestRow = -1;
             int bestColumn = -1;
-            int bestScore = -1;
+            double bestScore = Double.NegativeInfinity;
 
             for (int i = 0; i < _board.GetSize(); i++)
             {
@@ -128,7 +130,7 @@ namespace OmegaSudoku.Solvers
                         int effectScore = SudokuUtil.NumberOfOptions(_board.GetRowMask(i), _board.GetSize()) + SudokuUtil.NumberOfOptions(_board.GetColumnMask(j), _board.GetSize() + SudokuUtil.NumberOfOptions(_board.GetSquareMask(squareI, squareJ), _board.GetSize()));
 
                         //Calculate total score
-                        int totalScore = optionsScore * optionsWeight + effectScore * effectWeight;
+                        double totalScore = optionsScore * optionsWeight + effectScore * effectWeight;
 
                         if (totalScore > bestScore)
                         {

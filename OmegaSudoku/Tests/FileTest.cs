@@ -81,9 +81,9 @@ namespace OmegaSudoku.Tests
             // Print the solve time
             Console.WriteLine("\nSolve time   |   Per Sudoku");
             Console.WriteLine("----------       ----------");
-            Console.Write(time.ToString(@"mm\:ss\.ffff"));
+            Console.Write(time.ToString(@"m\:ss\.fffff"));
             Console.Write("   |   ");
-            Console.Write(perBoard.ToString(@"mm\:ss\.ffff"));
+            Console.Write(perBoard.ToString(@"m\:ss\.fffff"));
             Console.WriteLine("\n");
 
             // Return the solve time
@@ -150,9 +150,9 @@ namespace OmegaSudoku.Tests
             // Print the solve time
             Console.WriteLine("\nSolve time   |   Per Sudoku");
             Console.WriteLine("----------       ----------");
-            Console.Write(time.ToString(@"mm\:ss\.ffff"));
+            Console.Write(time.ToString(@"m\:ss\.fffff"));
             Console.Write("   |   ");
-            Console.Write(perBoard.ToString(@"mm\:ss\.ffff"));
+            Console.Write(perBoard.ToString(@"m\:ss\.fffff"));
             Console.WriteLine("\n");
 
             // Retunr the solve time
