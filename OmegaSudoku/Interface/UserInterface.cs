@@ -35,6 +35,7 @@ namespace OmegaSudoku.Interface
             }
 
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
             Console.WriteLine("Solving Sudoku:");
             Console.WriteLine(input + "\n");
 
@@ -51,6 +52,7 @@ namespace OmegaSudoku.Interface
         public static void TestInterface()
         {
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("This program contains 2 types of tests:");
             Console.WriteLine("One test containing easy Sudokus, and another containing difficult ones");
@@ -85,6 +87,7 @@ namespace OmegaSudoku.Interface
         public static void EasyTestInterface()
         {
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("This test will run a large amount of easy Sudokus from a dataset");
             Console.WriteLine("The original dataset contains 9 million Sudokus and their solutions");
@@ -122,6 +125,7 @@ namespace OmegaSudoku.Interface
         public static void DifficultTestInterface()
         {
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("This test will run a large amount of difficult Sudokus from a dataset");
             Console.WriteLine("This dataset contains 49,151 Sudokus with only 17 cells filled");
@@ -155,6 +159,7 @@ namespace OmegaSudoku.Interface
         public static void ShowInterface()
         {
             Console.Clear();
+            Console.WriteLine("\x1b[3J");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("Sudoku board input\n");
             Console.WriteLine("A Sudoku board is represented by a series of 81 digits");
