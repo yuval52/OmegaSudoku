@@ -38,13 +38,37 @@ namespace OmegaSudoku.Tests
             string emptyLoadingBar = new string(' ', loadingBarSegments);
             Console.Write("[" + emptyLoadingBar + "]");
 
-            // Messure the time before solving
-            DateTime before = DateTime.Now;
+            // Variable to keep track of total solving time
+            TimeSpan totalTime = TimeSpan.Zero;
+
+            // Variable to keep track of longest solving time for a single board
+            TimeSpan longestBoard = TimeSpan.Zero;
 
             for (int i = 0; i < rows.Count; i++)
             {
-                //Console.WriteLine(rows[i][0]);
+                
+                // Messure the time before solving
+                DateTime before = DateTime.Now;
+
+                // Solve the board
                 string solved = SudokuSolver.TestSolver(rows[i][0]);
+
+                // Messure the time after solving
+                DateTime after = DateTime.Now;
+
+                // Calculate solving time
+                TimeSpan time = after - before;
+
+                // Add solving time to total time
+                totalTime += time;
+
+                if (time > longestBoard)
+                {
+                    // Update longest solving time for a single board
+                    longestBoard = time;
+                }
+
+                // Verify solution
                 bool isSolved = solved.Equals(rows[i][1]);
                 if (!isSolved)
                 {
@@ -65,29 +89,30 @@ namespace OmegaSudoku.Tests
             string fullLoadingBar = new string('-', loadingBarSegments);
             Console.Write("\r[" + fullLoadingBar + "]\n\n");
 
-            // Messure the time after solving
-            DateTime after = DateTime.Now;
+            
 
-            // Calculate solving time
-            TimeSpan time = after - before;
+            
 
             // Print if the solves were correct
             Console.WriteLine("All boards solved correctly:\n");
             Console.WriteLine(allTrue);
 
             // Calculate per board time
-            TimeSpan perBoard = time.Divide(numberOfLines);
+            TimeSpan perBoard = totalTime.Divide(numberOfLines);
 
-            // Print the solve time
-            Console.WriteLine("\nSolve time   |   Per Sudoku");
-            Console.WriteLine("----------       ----------");
-            Console.Write(time.ToString(@"m\:ss\.fffff"));
+            // Print the solve times
+            Console.WriteLine("\nTotal Time   |   Per Sudoku   |   Longest Sudoku");
+            Console.WriteLine("----------       ----------       --------------");
+            Console.Write(totalTime.ToString(@"m\:ss\.fffff"));
             Console.Write("   |   ");
             Console.Write(perBoard.ToString(@"m\:ss\.fffff"));
+            Console.Write("   |   ");
+            Console.Write("  ");
+            Console.Write(longestBoard.ToString(@"m\:ss\.fffff"));
             Console.WriteLine("\n");
 
             // Return the solve time
-            return time;
+            return totalTime;
         }
 
         /// <summary>
@@ -116,13 +141,34 @@ namespace OmegaSudoku.Tests
             string emptyLoadingBar = new string(' ', loadingBarSegments);
             Console.Write("[" + emptyLoadingBar + "]");
 
-            // Messure the time before solving
-            DateTime before = DateTime.Now;
+            // Variable to keep track of total solving time
+            TimeSpan totalTime = TimeSpan.Zero;
+
+            // Variable to keep track of longest solving time for a single board
+            TimeSpan longestBoard = TimeSpan.Zero;
 
             for (int i = 0; i < rows.Length; i++)
             {
-                //Console.WriteLine(rows[i][0]);
+                // Messure the time before solving
+                DateTime before = DateTime.Now;
+
+                // Solve the board
                 string solved = SudokuSolver.TestSolver(rows[i]);
+
+                // Messure the time after solving
+                DateTime after = DateTime.Now;
+
+                // Calculate solving time
+                TimeSpan time = after - before;
+
+                // Add solving time to total time
+                totalTime += time;
+
+                if (time > longestBoard)
+                {
+                    // Update longest solving time for a single board
+                    longestBoard = time;
+                }
 
                 if (i % tenthSize == 0)
                 {
@@ -138,25 +184,22 @@ namespace OmegaSudoku.Tests
             string fullLoadingBar = new string('-', loadingBarSegments);
             Console.Write("\r[" + fullLoadingBar + "]\n\n");
 
-            // Messure the time after solving
-            DateTime after = DateTime.Now;
-
-            // Calculate solving time
-            TimeSpan time = after - before;
-
             // Calculate per board time
-            TimeSpan perBoard = time.Divide(numberOfLines);
+            TimeSpan perBoard = totalTime.Divide(numberOfLines);
 
-            // Print the solve time
-            Console.WriteLine("\nSolve time   |   Per Sudoku");
-            Console.WriteLine("----------       ----------");
-            Console.Write(time.ToString(@"m\:ss\.fffff"));
+            // Print the solve times
+            Console.WriteLine("\nTotal Time   |   Per Sudoku   |   Longest Sudoku");
+            Console.WriteLine("----------       ----------       --------------");
+            Console.Write(totalTime.ToString(@"m\:ss\.fffff"));
             Console.Write("   |   ");
             Console.Write(perBoard.ToString(@"m\:ss\.fffff"));
+            Console.Write("   |   ");
+            Console.Write("  ");
+            Console.Write(longestBoard.ToString(@"m\:ss\.fffff"));
             Console.WriteLine("\n");
 
             // Retunr the solve time
-            return time;
+            return totalTime;
         }
 
         /// <summary>
