@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using OmegaSudoku.Exceptions;
 namespace OmegaSudoku.Util
 {
     /// <summary>
@@ -55,6 +56,46 @@ namespace OmegaSudoku.Util
         {
             int numMask = 1 << (num - 1);
             return mask & ~numMask;
+        }
+
+        /// <summary>
+        /// Converts an input charachter into the corresponding number for the Sudoku board.
+        /// </summary>
+        /// <param name="inputChar">The character to convert.</param>
+        /// <returns>The numerical value of the character.</returns>
+        /// <exception cref="InvalidCharacterException">An exceptin that is thrown when the input string contains an invalid charachter.</exception>
+        public static int InputCharToNumber(char inputChar)
+        {
+            // From looking online it seems the most common way to represent large Sudokus is to use English letters as numbers above 9
+            if (Char.IsDigit(inputChar))
+            {
+                return inputChar - '0';
+            }
+            else if (Char.IsLetter(inputChar))
+            {
+                return Char.ToLower(inputChar) - 'a' + 10;
+            }
+            else
+            {
+                throw new InvalidCharacterException(inputChar);
+            }
+        }
+
+        /// <summary>
+        /// Converts a number into the corresponding output charachter.
+        /// </summary>
+        /// <param name="number">The number to convert.</param>
+        /// <returns>The corresponding character.</returns>
+        public static char NumberToOutputChar(int number)
+        {
+            if (number <= 9)
+            {
+                return (char)(number + '0');
+            }
+            else
+            {
+                return (char)(number - 10 + 'a');
+            }
         }
     }
 }

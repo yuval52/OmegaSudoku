@@ -300,7 +300,7 @@ namespace OmegaSudoku.Board
                 {
                     int value = _board[i, j];
                     // Replace zeros with spaces for empty cells
-                    string toPrint = value == 0 ? " " : value.ToString();
+                    char toPrint = value == 0 ? ' ' : SudokuUtil.NumberToOutputChar(value);
 
                     Console.Write($" {toPrint} ");
 

@@ -1,4 +1,5 @@
 ﻿using OmegaSudoku.Exceptions;
+using OmegaSudoku.Util;
 
 namespace OmegaSudoku.Interface
 {
@@ -22,20 +23,21 @@ namespace OmegaSudoku.Interface
                 // Invalid input length
                 throw new InvalidSudokuLengthException(length);
             }
+            int lengthRoot = (int)Math.Sqrt(length);
 
             int[] sudokuArray = new int[length];
 
             // Go over every character
             for (int i = 0; i < length; i++)
             {
-                if (char.IsDigit(input[i]))
+
+                int currentNum = SudokuUtil.InputCharToNumber(input[i]);
+                if (currentNum <= lengthRoot)
                 {
-                    // Convert char digit to int
-                    sudokuArray[i] = input[i] - '0';
+                    sudokuArray[i] = currentNum;
                 }
                 else
                 {
-                    // Non digit character
                     throw new InvalidCharacterException(input[i]);
                 }
             }
