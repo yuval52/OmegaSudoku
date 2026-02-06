@@ -17,12 +17,27 @@ namespace OmegaSudoku.Interface
         /// <exception cref="InvalidCharacterException">An exceptin that is thrown when the input string contains an invalid charachter.</exception>
         public static int[] ConvertInput(string input)
         {
+            // The length of the input string
             int length = input.Length;
-            if (length != 81)
+
+            // Check if the length is valid
+            bool validLength = false;
+
+            for (int i = 0; i < SudokuUtil.possibleSizes.Length; i++)
             {
-                // Invalid input length
+                if (length == (SudokuUtil.possibleSizes[i] * SudokuUtil.possibleSizes[i]))
+                {
+                    validLength = true;
+                    break;
+                }
+            }
+
+            if (!validLength)
+            {
                 throw new InvalidSudokuLengthException(length);
             }
+
+            // The root of the length (size of the board)
             int lengthRoot = (int)Math.Sqrt(length);
 
             int[] sudokuArray = new int[length];
