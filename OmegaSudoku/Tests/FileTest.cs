@@ -11,7 +11,7 @@ namespace OmegaSudoku.Tests
         /// Run a test loading and solving a large number of easy Sudokus from a CSV file.
         /// </summary>
         /// <param name="numberOfLines">The amount of lines to read from the file.</param>
-        /// <returns>The time it took to solve all Sudokus</returns>
+        /// <returns>The longest time it too to solve a single board.</returns>
         public static TimeSpan TestEasyFile(int numberOfLines)
         {
             Console.WriteLine("----------------------------------------------------------------");
@@ -89,10 +89,6 @@ namespace OmegaSudoku.Tests
             string fullLoadingBar = new string('-', loadingBarSegments);
             Console.Write("\r[" + fullLoadingBar + "]\n\n");
 
-            
-
-            
-
             // Print if the solves were correct
             Console.WriteLine("All boards solved correctly:\n");
             Console.WriteLine(allTrue);
@@ -112,14 +108,14 @@ namespace OmegaSudoku.Tests
             Console.WriteLine("\n");
 
             // Return the solve time
-            return totalTime;
+            return longestBoard;
         }
 
         /// <summary>
         /// Run a test loading and solving a large number of difficult Sudokus from a txt file.
         /// </summary>
         /// <param name="numberOfLines">The amount of lines to read from the file.</param>
-        /// <returns>The time it took to solve all Sudokus</returns>
+        /// <returns>The longest time it too to solve a single board.</returns>
         public static TimeSpan TestDifficultFile(int numberOfLines)
         {
             Console.WriteLine("----------------------------------------------------------------");
@@ -198,8 +194,8 @@ namespace OmegaSudoku.Tests
             Console.Write(longestBoard.ToString(@"m\:ss\.fffff"));
             Console.WriteLine("\n");
 
-            // Retunr the solve time
-            return totalTime;
+            // Return the solve time
+            return longestBoard;
         }
 
         /// <summary>

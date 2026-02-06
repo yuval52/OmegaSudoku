@@ -14,9 +14,9 @@ namespace OmegaSudokuTest
             int numberOfSudokus = 100000;
             TimeSpan oneSecond = TimeSpan.FromSeconds(1);
 
-            TimeSpan solveTime = FileTest.TestEasyFile(numberOfSudokus);
-            TimeSpan averageSudokuTime = solveTime.Divide(numberOfSudokus);
-            Assert.IsTrue(averageSudokuTime <  oneSecond);
+            TimeSpan longestSolveTime = FileTest.TestEasyFile(numberOfSudokus);
+            // Test if the longest solve time is less than one second
+            Assert.IsTrue(longestSolveTime <  oneSecond);
         }
 
         [TestMethod]
@@ -25,9 +25,9 @@ namespace OmegaSudokuTest
             int numberOfSudokus = 49151;
             TimeSpan oneSecond = TimeSpan.FromSeconds(1);
 
-            TimeSpan solveTime = FileTest.TestDifficultFile(numberOfSudokus);
-            TimeSpan averageSudokuTime = solveTime.Divide(numberOfSudokus);
-            Assert.IsTrue(averageSudokuTime < oneSecond);
+            TimeSpan longestSolveTime = FileTest.TestDifficultFile(numberOfSudokus);
+            // Test if the longest solve time is less than one second
+            Assert.IsTrue(longestSolveTime < oneSecond);
         }
     }
 }
