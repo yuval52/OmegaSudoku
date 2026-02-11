@@ -70,6 +70,13 @@ namespace OmegaSudoku.Solvers
             Console.WriteLine(time.ToString(@"m\:ss\.fffff"));
             Console.WriteLine();
 
+            Console.WriteLine("The solved board as a string");
+            Console.WriteLine("----------------------------");
+
+            Console.WriteLine(board.ToString());
+
+            Console.WriteLine();
+
             // Return solved board in the same format as the input board
             return board.ToString();
         }

@@ -349,7 +349,7 @@ namespace OmegaSudoku.Board
                 for (int j = 0; j < _size; j++)
                 {
                     // Append every number to the string
-                    boardString += _board[i, j];
+                    boardString += SudokuUtil.NumberToOutputChar(_board[i, j]);
                 }
             }
 

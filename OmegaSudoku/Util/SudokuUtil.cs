@@ -96,7 +96,7 @@ namespace OmegaSudoku.Util
             }
             else
             {
-                return (char)(number - 10 + 'a');
+                return (char)(number - 10 + 'A');
             }
         }
     }
