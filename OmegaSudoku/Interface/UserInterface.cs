@@ -89,8 +89,8 @@ namespace OmegaSudoku.Interface
             Console.Clear();
             Console.WriteLine("\x1b[3J");
             Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("This test will run a large amount of easy 9x9 Sudokus from a dataset");
-            Console.WriteLine("The original dataset contains 9 million Sudokus and their solutions");
+            Console.WriteLine("This test will run a large amount of easy Sudokus from a dataset");
+            Console.WriteLine("The original dataset contains 9 million 9x9 Sudoku boards and their solutions");
             Console.WriteLine("For this application I used a subset of the dataset that only contains 100,000 Sudokus, since the");
             Console.WriteLine("full dataset is too large to be uploaded to GitHub");
             Console.WriteLine("----------------------------------------------------------------");
@@ -127,8 +127,8 @@ namespace OmegaSudoku.Interface
             Console.Clear();
             Console.WriteLine("\x1b[3J");
             Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("This test will run a large amount of difficult 9x9 Sudokus from a dataset");
-            Console.WriteLine("This dataset contains 49,151 Sudokus with only 17 cells filled");
+            Console.WriteLine("This test will run a large amount of difficult Sudokus from a dataset");
+            Console.WriteLine("This dataset contains 49,151 9x9 Sudoku boards with only 17 cells filled");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("Enter how many Sudokus to run from the file:");
             string input = Console.ReadLine();
@@ -163,13 +163,14 @@ namespace OmegaSudoku.Interface
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("Sudoku board input");
             Console.WriteLine("----------------------------------------------------------------");
-            Console.WriteLine("A Sudoku board can be of multiple different sizes, 4x4, 9x9 and 16x16\n");
+            Console.WriteLine("A Sudoku board can be of multiple different sizes, 4x4, 9x9, 16x16 and 25x25\n");
             Console.WriteLine("A Sudoku board is represented by a series of charachters, 1 for each cell");
             Console.WriteLine("The characters correspond to the cells of the board, row by row from left to right");
             Console.WriteLine("The amount of characters depends on the size of the board, 16 for 4x4, 81 for 9x9 and so on\n");
             Console.WriteLine("The numbers 1 - 9 are represented by the corresponding digit");
             Console.WriteLine("Numbers above 9 are represented by ascending English letters, A for 10, B for 11 and so on");
-            Console.WriteLine("The digit 0 reprsents an empty cells");
+            Console.WriteLine("The digit 0 reprsents an empty cells\n");
+            Console.WriteLine("(Warning: 25x25 boards take a long time to solve)");
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("To quit the solver type 'quit'");
             Console.WriteLine("To run a large amount of Sudokus from a dataset type 'test'");
