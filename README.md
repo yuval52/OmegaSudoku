@@ -2,6 +2,10 @@
 
 This is a C# application designed to solve Sudoku puzzles quickly. The application can receive Sudoku boards from the user and solve them, as well as run a speed test including many Sudoku boards taken from a built in dataset.
 
+## Installation instructions
+
+To install the application go to the "releases" tab on the GitHub page, choose the latest version, and download the file "OmegaSudoku.zip". Once you have downloaded the zip file, extract it wherever you wish to install it. To run the application simply open "OmegaSudoku.exe".
+
 ## How To Use The Application
 
 When opening the program, you will be presented a console screen with instructions, asking you to enter a Sudoku board.
