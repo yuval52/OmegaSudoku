@@ -9,7 +9,8 @@ When opening the program, you will be presented a console screen with instructio
 ### Solving a single board
 ---
 
-To solve a single Sudoku board, simply enter the Sudoku board in the correct format. The correct format for a Sudoku board is a sequence of 81 digits, each digit representing a cell on the 9x9 board, row by row from left to right and from top to bottom. Cells with numbers are represented by their corresponding digit from 1 to 9, whille empty cells are represented by zeros.
+The application can solve Sudoku boards ranging in size from 4x4 to 16x16.
+To solve a single Sudoku board, simply enter the Sudoku board in the correct format. The correct format for a Sudoku board is a sequence of characters matching the size of the board, so that each character represents a cell on the board, so for a 4x4 board that would be 16 characters for 16 cells, for a 9x9 board it would be 81 characters for 81 cells, and so on. The characters represent cells in order, row by row from left to right and from top to bottom. Cells with numbers from 1 to 9 are represented by their corresponding digit character, whille numbers above 9 are represented by English letters ('A' for 10, 'B' for 11, 'C' for 12 and so on). Empty cells are represented by zeros.
 
 The main interface of the application:
 
@@ -33,7 +34,7 @@ To enter test mode, simply type "test" into the console instead of a Sudoku boar
 #### The easy test:
 ---
 
-The easy speed test allows you to input a number of Sudokus to solve from the dataset. The easy Sudoku dataset contains 100,000 Sudoku boards as well as their solutions.
+The easy speed test allows you to input a number of Sudokus to solve from the dataset. The easy Sudoku dataset contains 100,000 9x9 Sudoku boards as well as their solutions.
 
 When you choose the easy speed test you are asked to select an amount of Sudokus to solve. When you input a number, the application loads that number of Sudoku boards from the start of the file and starts solving them while displaying a progress bar. When the test is over the application displays whether the boards were solved correctly, as well as the total solve time for all the boards.
 
@@ -42,7 +43,7 @@ When you choose the easy speed test you are asked to select an amount of Sudokus
 #### The difficult test:
 ---
 
-The difficult speed test allows you to input a number of Sudokus to solve from the dataset. The difficult Sudoku dataset contains 49,151 Sudoku boards with only 17 cells filled in, the minimum amount for a Sudoku board to be deterministic.
+The difficult speed test allows you to input a number of Sudokus to solve from the dataset. The difficult Sudoku dataset contains 49,151 9x9 Sudoku boards with only 17 cells filled in, the minimum amount for a Sudoku board to be deterministic.
 
 When you choose the difficult you are asked to select an amount of Sudokus to solve. When you input a number, the application loads that number of Sudoku boards from the start of the file and startss solving them while displaying a progress bar. When the test is over the application displays the total solve time forr all the boards.
 
