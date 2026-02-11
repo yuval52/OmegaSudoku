@@ -55,6 +55,15 @@ The solver uses a combination of differnt techniques that together can solve Sud
 
 The core of the solver is a simple backtracking algorithm, recursively looking for a possible solution to the board. However backtracking alone is not efficient enough to solve the Sudoku boards fast enough, so in this application I combined the backtracking algorithm with certain human solving techniques, making board solving significantly faster.
 
+### Board representation
+---
+
+The Sudoku board gets loaded into the application and converted into an object of the SudokuBoard class. The class holds the current cells of the board as a matrix of integers. All cells are saved as numbers, converting the English letters of larger boards into numbers. Empty cells are represented by zeros in the matrix.
+
+The SudokuBoard class also holds a few more arrays. 2 one dimensional arrrays, one for all rows and one for all columns, as well as 1 matrix for every square. Thesse arrays hold integers that are used as bitmasks. These bitmasks are used to hold the numbers that exist in the corresponding unit (row, column, square). The first bit in each bitmask is set to 1 if the number 1 is present in the corresponding unit, the second bit in each bitmask is set to 1 if the number 2 is present in the unit, and so on.
+
+This means that getting the possible values in a cell is very easy. Getting the possible values in a cell is done by performing a bitwise or operation on the bitmasks for all 3 units the cell is in, resulting in a bitmask of numbers that cannot be placed in that cell, meaning the 0 bits in the first n bits (with n being the size of one side of the board) are the numbers that can be placed.
+
 ### Backtracing
 ---
 
