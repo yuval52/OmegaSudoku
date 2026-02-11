@@ -86,11 +86,13 @@ namespace OmegaSudoku.Board
                         {
                             // Couldn't add number to mask, invalid board
                             valid = false;
+                            Console.WriteLine($"Invalid cell at coordinates [{i}, {j}], there is a duplicate in its row");
                         }
                         if (!AddToColumnMask(j, _board[i, j]))
                         {
                             // Couldn't add number to mask, invalid board
                             valid = false;
+                            Console.WriteLine($"Invalid cell at coordinates [{i}, {j}], there is a duplicate in its column");
                         }
                         // Calculate coordinates of square containing cell
                         int squareI = i / _sizeRoot;
@@ -99,6 +101,7 @@ namespace OmegaSudoku.Board
                         {
                             // Couldn't add number to mask, invalid board
                             valid = false;
+                            Console.WriteLine($"Invalid cell at coordinates [{i}, {j}], there is a duplicate in its square");
                         }
                     }
                 }
