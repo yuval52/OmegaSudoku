@@ -93,8 +93,12 @@ namespace OmegaSudoku.Solvers
             // Convert the input string to an array
             int[] sudokuArr = InputValidation.ConvertInput(sudokuString);
 
+            // Determine the size of the board
+            int arrLength = sudokuArr.Length;
+            int boardSize = (int)Math.Sqrt(arrLength);
+
             // Create new sudoku board and load the array into it
-            SudokuBoard board = new SudokuBoard(9);
+            SudokuBoard board = new SudokuBoard(boardSize);
             bool valid = board.LoadBoard(sudokuArr);
 
             if (!valid)
