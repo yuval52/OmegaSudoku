@@ -8,7 +8,7 @@ namespace OmegaSudoku.Util
     public static class SudokuUtil
     {
         // The possible sizes for Sudoku boards
-        public static readonly int[] possibleSizes = {4, 9, 16};
+        public static readonly int[] possibleSizes = {4, 9, 16, 25};
 
         /// <summary>
         /// Determines the number of possible options (0 bits) in a given bitmask.
