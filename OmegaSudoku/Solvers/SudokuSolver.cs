@@ -65,7 +65,8 @@ namespace OmegaSudoku.Solvers
             board.PrintBoard();
 
             // Print the solve time
-            Console.WriteLine("\nSolve time:");
+            Console.WriteLine("\nSolve time");
+            Console.WriteLine("----------");
             Console.WriteLine(time.ToString(@"m\:ss\.fffff"));
             Console.WriteLine();
 
